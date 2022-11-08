@@ -13,7 +13,7 @@ class WhiteListScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(icon: Icon(LineIcons.angleLeft), onPressed: () => Navigator.pop(context)),
         elevation: 0,
-        title: Text("whitelist_page".tr()),
+        title: Text("whitelist_page".trs()),
         centerTitle: true,
       ),
       body: Column(
@@ -41,7 +41,7 @@ class WhiteListScreen extends StatelessWidget {
                         return Container(
                           alignment: Alignment.center,
                           height: 300,
-                          child: Text("no_app_detected".tr()),
+                          child: Text("no_app_detected".trs()),
                         );
                     },
                   ),

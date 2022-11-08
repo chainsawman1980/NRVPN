@@ -33,7 +33,7 @@ class PengaturanPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text("setting_app".tr(), style: TextStyle(fontSize: 12, color: Colors.grey)),
+                  Text("setting_app".trs(), style: TextStyle(fontSize: 12, color: Colors.grey)),
                   // FutureBuilder<AndroidDeviceInfo>(
                   //   future: DeviceInfoPlugin().androidInfo,
                   //   builder: (context, snapshot) {
@@ -58,7 +58,7 @@ class PengaturanPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 ListTile(
-                                  title: Text("setting_gopremium".tr()),
+                                  title: Text("setting_gopremium".trs()),
                                   leading: Icon(LineIcons.gift, color: Colors.black),
                                   onTap: () => _subscriptionClick(context),
                                 )
@@ -67,12 +67,12 @@ class PengaturanPage extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    title: Text("setting_language".tr()),
+                    title: Text("setting_language".trs()),
                     leading: Icon(LineIcons.flag, color: Colors.black),
                     onTap: () => _language(context),
                   ),
                   ListTile(
-                    title: Text("setting_checkupdate".tr()),
+                    title: Text("setting_checkupdate".trs()),
                     leading: Icon(LineIcons.download, color: Colors.black),
                     onTap: () => _checkUpdateClick(context),
                   ),
@@ -82,24 +82,24 @@ class PengaturanPage extends StatelessWidget {
                   //   leading: Icon(LineIcons.android, color: Colors.black),
                   //   onTap: () => _whiteListApps(context),
                   // ),
-                  Text("setting_aboutus".tr(), style: TextStyle(fontSize: 12, color: Colors.grey)),
+                  Text("setting_aboutus".trs(), style: TextStyle(fontSize: 12, color: Colors.grey)),
                   ListTile(
-                    title: Text("setting_privacypolicy".tr()),
+                    title: Text("setting_privacypolicy".trs()),
                     leading: Icon(LineIcons.userShield, color: Colors.black),
                     onTap: () => _privacyPolicyClick(context),
                   ),
                   ListTile(
-                    title: Text("setting_tos".tr()),
+                    title: Text("setting_tos".trs()),
                     leading: Icon(LineIcons.stickyNote, color: Colors.black),
                     onTap: _tosClick,
                   ),
                   ListTile(
-                    title: Text("about".tr()),
+                    title: Text("about".trs()),
                     leading: Icon(LineIcons.infoCircle, color: Colors.black),
                     onTap: () => _aboutClick(context),
                   ),
                   ListTile(
-                    title: Text("setting_rateus".tr()),
+                    title: Text("setting_rateus".trs()),
                     leading: Icon(LineIcons.star, color: Colors.black),
                     onTap: _rateUsClick,
                   ),
@@ -152,11 +152,11 @@ class PengaturanPage extends StatelessWidget {
       }
     } else {
       NAlertDialog(
-        title: Text("no_update".tr()),
-        content: Text("latest_version".tr()),
+        title: Text("no_update".trs()),
+        content: Text("latest_version".trs()),
         actions: [
           TextButton(
-            child: Text("great".tr()),
+            child: Text("great".trs()),
             style: ButtonStyle(shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)))),
             onPressed: () => Navigator.pop(context),
           )
@@ -173,7 +173,7 @@ class PengaturanPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Text(
-        "settings".tr(),
+        "settings".trs(),
         style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         textAlign: TextAlign.center,
       ),
@@ -181,11 +181,13 @@ class PengaturanPage extends StatelessWidget {
   }
 
   void _tosClick() {
-    launch("https://nrvpn.com/terms-of-agreement/");
+    var url = "https://nrvpn.com/terms-of-agreement/";
+    launchUrl(Uri.http(url));
   }
 
   void _privacyPolicyClick(context) {
-    launch("https://nrvpn.com/privacy/");
+    var url = "https://nrvpn.com/privacy/";
+    launchUrl(Uri.http(url));
   }
 
   void _aboutClick(context) {

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:card_swiper/card_swiper.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:nizvpn/easy_local/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +14,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ndialog/ndialog.dart';
+import 'package:nizvpn/ui/page/webview_page.dart';
 import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../../core/models/bannermessage.dart';
 import '../../core/provider/uiProvider.dart';
 import '../../core/provider/vpnProvider.dart';
@@ -114,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      "download".tr(),
+                      "download".trs(),
                       style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
@@ -132,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      "upload".tr(),
+                      "upload".trs(),
                       style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
@@ -158,7 +161,7 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            "current_location".tr(),
+            "current_location".trs(),
             style: TextStyle(fontSize: 12),
           ),
           ColumnDivider(
@@ -190,7 +193,7 @@ class _HomePageState extends State<HomePage> {
                                   )),
                           ),
                     RowDivider(),
-                    Expanded(child: Text(value.vpnConfig?.name ?? "select_vpn".tr())),
+                    Expanded(child: Text(value.vpnConfig?.name ?? "select_vpn".trs())),
                     Consumer<VpnProvider>(
                       builder: (context, value, child) => Text(value.vpnConfig?.protocol?.toUpperCase() ?? ""),
                     ),
@@ -253,6 +256,8 @@ class _HomePageState extends State<HomePage> {
   static final en_US = [
     'assets/images/banner/oubao_banner1.jpeg',
     'assets/images/banner/oubao_banner2.jpeg',
+    'assets/images/banner/oubao_banner3.jpeg',
+    'assets/images/banner/oubao_banner4.jpeg',
   ];
 
   Widget _topBannerWidget() {
@@ -268,10 +273,18 @@ class _HomePageState extends State<HomePage> {
                       fit: BoxFit.cover,
                     );
                   },
-                  itemCount: 2,
+                  itemCount: rxBanner.length,
                   autoplay: true,
                   pagination: SwiperPagination(),
                   onTap: (int index) {
+                    String? strJumpUrl = rxBanner.value[index].url;
+                    String strurl = Uri.encodeFull(strJumpUrl!);
+                    strurl.replaceAll("\n", '');
+                    //launchUrl(Uri.https(strurl));
+                    Navigator.push(context, new MaterialPageRoute(builder: (context) => WebViewPage(
+                        strUrl: strurl,
+                        strTitle: rxBanner.value[index].title,
+                        blNavigation: true)),);
 
                   }
                 //control: SwiperControl(),
@@ -288,24 +301,24 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Consumer<VpnProvider>(
         builder: (context, value, child) {
-          String tulisan = "unprotected".tr();
+          String tulisan = "unprotected".trs();
           Color color = Colors.red;
 
           String stage = (value.vpnStage ?? NVPN.vpnDisconnected).toLowerCase();
           if (stage == NVPN.vpnConnected.toLowerCase()) {
-            tulisan = "protected".tr();
+            tulisan = "protected".trs();
             color = Colors.green;
           } else if (stage != NVPN.vpnDisconnected.toLowerCase()) {
             tulisan = value.vpnStage!.replaceAll("_", " ");
             color = Colors.orange;
           } else {
-            tulisan = "unprotected".tr();
+            tulisan = "unprotected".trs();
             color = Colors.red;
           }
           return RichText(
             text: TextSpan(children: [
-              TextSpan(text: "${"welcome".tr()},\n", style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold)),
-              TextSpan(text: "${"your_connection".tr()} ", style: GoogleFonts.poppins(fontSize: 15, color: Colors.black)),
+              TextSpan(text: "${"welcome".trs()},\n", style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold)),
+              TextSpan(text: "${"your_connection".trs()} ", style: GoogleFonts.poppins(fontSize: 15, color: Colors.black)),
               TextSpan(text: tulisan.toUpperCase(), style: GoogleFonts.poppins(fontSize: 15, color: color)),
             ]),
           );
@@ -380,27 +393,27 @@ class _HomePageState extends State<HomePage> {
       if (vpnProvider.vpnStage == NVPN.vpnConnected) {
         var resp = await NAlertDialog(
           dialogStyle: DialogStyle(titleDivider: true, contentPadding: EdgeInsets.only()),
-          title: Text("${"disconnect".tr()}?"),
+          title: Text("${"disconnect".trs()}?"),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                child: Text("disconnect_question".tr()),
+                child: Text("disconnect_question".trs()),
               ),
             ],
           ),
           actions: [
             TextButton(
-              child: Text("disconnect".tr()),
+              child: Text("disconnect".trs()),
               style: ButtonStyle(shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)))),
               onPressed: () {
                 Navigator.pop(context, true);
               },
             ),
             TextButton(
-              child: Text("cancel".tr()),
+              child: Text("cancel".trs()),
               style: ButtonStyle(shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)))),
               onPressed: () {
                 Navigator.pop(context, false);
@@ -441,12 +454,12 @@ class _HomePageState extends State<HomePage> {
         }
       } else {
         return NAlertDialog(
-          title: Text("unknown_server".tr()),
-          content: Text("select_a_server".tr()),
+          title: Text("unknown_server".trs()),
+          content: Text("select_a_server".trs()),
           actions: [
             TextButton(
               onPressed: () => UIProvider.instance(context).sheetController.snapToPosition(SnappingPosition.factor(positionFactor: .8, grabbingContentOffset: GrabbingContentOffset.bottom)),
-              child: Text("choose_server".tr()),
+              child: Text("choose_server".trs()),
               style: ButtonStyle(shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)))),
             )
           ],
@@ -457,12 +470,12 @@ class _HomePageState extends State<HomePage> {
         if ((await Preferences.init()).shared.getBool("show_dialog") ?? false) return;
         if (Random().nextBool()) {
           NAlertDialog(
-            title: Text("rating_title".tr()),
-            content: Text("rating_description".tr()),
+            title: Text("rating_title".trs()),
+            content: Text("rating_description".trs()),
             actions: [
-              TextButton(onPressed: () => Navigator.pop(context), child: Text("rating_done".tr())),
+              TextButton(onPressed: () => Navigator.pop(context), child: Text("rating_done".trs())),
               TextButton(
-                child: Text("rating_goto".tr()),
+                child: Text("rating_goto".trs()),
                 onPressed: () {
                   InAppReview.instance.openStoreListing();
                   Navigator.pop(context);

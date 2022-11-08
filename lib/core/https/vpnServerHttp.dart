@@ -77,7 +77,7 @@ class VpnServerHttp extends HttpConnection {
       resp = await (get(api + "allservers/getMessage", params: {"page": page.toString()}));
     }
     if (resp!.success!) {
-      return resp.data.map((e) => VpnServer.fromJson(e)).toList().cast<BannerMessages>();
+      return resp.data.map((e) => BannerMessages.fromJson(e)).toList().cast<BannerMessages>();
     }
     return [];
   }

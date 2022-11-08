@@ -40,12 +40,12 @@ class SharePage extends StatelessWidget {
               ),
               ColumnDivider(),
               Text(
-                "share_title".tr(),
+                "share_title".trs(),
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               Text(
-                "share_desc".tr().replaceAll("\$appname", appname),
+                "share_desc".trs().replaceAll("\$appname", appname),
                 style: TextStyle(fontSize: 15),
                 textAlign: TextAlign.center,
               ),
@@ -68,7 +68,7 @@ class SharePage extends StatelessWidget {
                       shape: MaterialStateProperty.all(StadiumBorder()),
                     ),
                     child: Text(
-                      "share_button".tr(),
+                      "share_button".trs(),
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     onPressed: _shareClick,
@@ -89,8 +89,8 @@ class SharePage extends StatelessWidget {
       child: RichText(
         textAlign: TextAlign.center,
         text: TextSpan(children: [
-          TextSpan(text: "${"invite".tr()} ", style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600)),
-          TextSpan(text: "${"friends".tr()}", style: GoogleFonts.poppins(color: primaryColor, fontSize: 18, fontWeight: FontWeight.w600)),
+          TextSpan(text: "${"invite".trs()} ", style: GoogleFonts.poppins(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600)),
+          TextSpan(text: "${"friends".trs()}", style: GoogleFonts.poppins(color: primaryColor, fontSize: 18, fontWeight: FontWeight.w600)),
         ]),
       ),
     );
@@ -99,7 +99,7 @@ class SharePage extends StatelessWidget {
   void _shareClick() async {
     PackageInfo pinfo = await PackageInfo.fromPlatform();
     Share.share(
-      "${"share_message".tr()}\nhttps://play.google.com/store/apps/details?id=" + (pinfo.packageName),
+      "${"share_message".trs()}\nhttps://play.google.com/store/apps/details?id=" + (pinfo.packageName),
     );
   }
 }

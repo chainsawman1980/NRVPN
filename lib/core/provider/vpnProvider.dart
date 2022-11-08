@@ -139,19 +139,19 @@ class VpnProvider extends ChangeNotifier {
 
   ///Dialog to tell that user's pro subscription is expired
   static Future renewSubs(BuildContext context, {String? title, String? message}) => NAlertDialog(
-        content: Text(message ?? "pro_expired".tr()),
-        title: Text(title ?? "ops".tr()),
+        content: Text(message ?? "pro_expired".trs()),
+        title: Text(title ?? "ops".trs()),
         actions: [
           TextButton(
             style: ButtonStyle(shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)))),
-            child: Text("renew".tr()),
+            child: Text("renew".trs()),
             onPressed: () {
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SubscriptionDetailScreen()));
             },
           ),
           TextButton(
             style: ButtonStyle(shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)))),
-            child: Text("continue_as_free".tr()),
+            child: Text("continue_as_free".trs()),
             onPressed: () {
               VpnProvider vpnProvider = VpnProvider.instance(context);
               vpnProvider.vpnConfig = null;

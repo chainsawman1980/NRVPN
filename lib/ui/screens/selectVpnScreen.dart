@@ -67,7 +67,7 @@ class _SelectVpnScreenState extends State<SelectVpnScreen> with AutomaticKeepAli
                           borderRadius: BorderRadius.circular(10),
                         ),
                         padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: FittedBox(child: Text("free_server".tr(), style: TextStyle(color: _page == 0 ? Colors.white : Colors.black))),
+                        child: FittedBox(child: Text("free_server".trs(), style: TextStyle(color: _page == 0 ? Colors.white : Colors.black))),
                       ),
                     ),
                   ),
@@ -92,7 +92,7 @@ class _SelectVpnScreenState extends State<SelectVpnScreen> with AutomaticKeepAli
                           ),
                           alignment: Alignment.centerRight,
                           padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: FittedBox(child: Text("pro_server".tr(), style: TextStyle(color: _page == 1 ? Colors.white : Colors.black))),
+                          child: FittedBox(child: Text("pro_server".trs(), style: TextStyle(color: _page == 1 ? Colors.white : Colors.black))),
                         ),
                       ),
                     ),
@@ -191,7 +191,7 @@ class _ServersWidgetState extends State<ServersWidget> with KeepAliveParentDataM
         return Container(
           height: 300,
           alignment: Alignment.center,
-          child: Text("no_server_available".tr(), textAlign: TextAlign.center),
+          child: Text("no_server_available".trs(), textAlign: TextAlign.center),
         );
       } else {
         return groupCountries ? _groupedCountriesWidget(data) : _countriesWidget();
@@ -388,11 +388,11 @@ class _VpnServerButtonState extends State<VpnServerButton> {
     VpnProvider provider = VpnProvider.instance(context);
     if (widget.vpnServer!.status == 1 && !provider.isPro && !force) {
       return NAlertDialog(
-        title: Text("not_allowed".tr()),
-        content: Text("not_allowed_desc".tr()),
+        title: Text("not_allowed".trs()),
+        content: Text("not_allowed_desc".trs()),
         actions: [
           TextButton(
-            child: Text("go_premium".tr()),
+            child: Text("go_premium".trs()),
             style: ButtonStyle(
                 shape: MaterialStateProperty.all(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
@@ -426,20 +426,20 @@ class _VpnServerButtonState extends State<VpnServerButton> {
       UIProvider.instance(context).sheetController.snapToPosition(SnappingPosition.factor(positionFactor: .13, grabbingContentOffset: GrabbingContentOffset.bottom));
     } else {
       NAlertDialog(
-        title: Text("protocol_not_available_title".tr()),
-        content: Text("protocol_not_available".tr()),
+        title: Text("protocol_not_available_title".trs()),
+        content: Text("protocol_not_available".trs()),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               _vpnSelectClick(context);
             },
-            child: Text("force".tr()),
+            child: Text("force".trs()),
             style: ButtonStyle(shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)))),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text("understand".tr()),
+            child: Text("understand".trs()),
             style: ButtonStyle(
               shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
             ),

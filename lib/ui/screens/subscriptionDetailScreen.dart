@@ -59,12 +59,12 @@ class _SubscriptionDetailScreenState extends State<SubscriptionDetailScreen> {
                     ),
                     ColumnDivider(),
                     Text(
-                      "great".tr(),
+                      "great".trs(),
                       style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      "premium_purchased".tr(),
+                      "premium_purchased".trs(),
                       style: TextStyle(fontSize: 15),
                       textAlign: TextAlign.center,
                     ),
@@ -147,7 +147,7 @@ class _SubscriptionDetailScreenState extends State<SubscriptionDetailScreen> {
                               ).createShader(bounds);
                             },
                             child: Text(
-                              "subscribe_title".tr(),
+                              "subscribe_title".trs(),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 25,
@@ -158,7 +158,7 @@ class _SubscriptionDetailScreenState extends State<SubscriptionDetailScreen> {
                           ),
                           ColumnDivider(space: 5),
                           Text(
-                            "subscription_detail".tr(),
+                            "subscription_detail".trs(),
                             style: TextStyle(fontSize: 15, color: Colors.grey),
                             textAlign: TextAlign.center,
                           ),
@@ -195,7 +195,7 @@ class _SubscriptionDetailScreenState extends State<SubscriptionDetailScreen> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               )),
           child: Text(
-            "subscribe".tr(),
+            "subscribe".trs(),
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: _selectedId != null ? _subscribeClick : null,
@@ -252,7 +252,7 @@ class _SubscriptionDetailScreenState extends State<SubscriptionDetailScreen> {
                                         padding: EdgeInsets.symmetric(horizontal: 5),
                                         decoration: BoxDecoration(color: accentColor, borderRadius: BorderRadius.circular(10)),
                                         child: Text(
-                                          "most_popular".tr(),
+                                          "most_popular".trs(),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(fontSize: 12, color: Colors.white),
                                         ),
@@ -294,7 +294,7 @@ class _SubscriptionDetailScreenState extends State<SubscriptionDetailScreen> {
             height: 200,
             alignment: Alignment.center,
             child: Text(
-              "not_available".tr(),
+              "not_available".trs(),
               textAlign: TextAlign.center,
             ),
           );

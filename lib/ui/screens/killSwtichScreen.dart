@@ -14,7 +14,7 @@ class KillSwitchScreen extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: Text("setting_killswitch".tr()),
+        title: Text("setting_killswitch".trs()),
         leading: IconButton(
           icon: Icon(LineIcons.angleLeft),
           onPressed: () => Navigator.pop(context),
@@ -25,7 +25,7 @@ class KillSwitchScreen extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         children: [
           Text(
-            "killswitch_title".tr(),
+            "killswitch_title".trs(),
             style: TextStyle(fontSize: 20),
             textAlign: TextAlign.center,
           ),
@@ -40,11 +40,11 @@ class KillSwitchScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text("1. ${"killswitch_step1".tr()}"),
+                Text("1. ${"killswitch_step1".trs()}"),
                 ColumnDivider(),
-                Text("2. ${"killswitch_step2".tr().replaceAll("\$appname", appname)}"),
+                Text("2. ${"killswitch_step2".trs().replaceAll("\$appname", appname)}"),
                 ColumnDivider(),
-                Text("3. ${"killswitch_step3".tr()}"),
+                Text("3. ${"killswitch_step3".trs()}"),
                 ColumnDivider(space: 15),
                 TextButton(
                   style: ButtonStyle(
@@ -53,7 +53,7 @@ class KillSwitchScreen extends StatelessWidget {
                       ),
                       backgroundColor: MaterialStateProperty.all(primaryColor)),
                   child: Text(
-                    "${"killswitch_opensetting".tr()}",
+                    "${"killswitch_opensetting".trs()}",
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: NVPN.openKillSwitch,
@@ -63,7 +63,7 @@ class KillSwitchScreen extends StatelessWidget {
           ),
           ColumnDivider(),
           Text(
-            "${"killswitch_note".tr()}",
+            "${"killswitch_note".trs()}",
             style: TextStyle(fontSize: 12),
             textAlign: TextAlign.center,
           )

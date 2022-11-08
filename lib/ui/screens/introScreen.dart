@@ -21,18 +21,18 @@ class IntroScreen extends StatelessWidget {
           pages: [
             PageViewModel(
               image: LottieBuilder.asset("assets/animations/1.json"),
-              title: "welcometo".tr() + " $appname VPN",
-              body: "takeyouaround".tr() + " $appname VPN",
+              title: "welcometo".trs() + " $appname VPN",
+              body: "takeyouaround".trs() + " $appname VPN",
             ),
             PageViewModel(
               image: LottieBuilder.asset("assets/animations/2.json"),
-              title: "provacyprotect".tr(),
-              body: "internetaccess".tr(),
+              title: "provacyprotect".trs(),
+              body: "internetaccess".trs(),
             ),
             PageViewModel(
               image: LottieBuilder.asset("assets/animations/3.json"),
-              title: "fastlimitless".tr(),
-              body: "provideserverfastlimitless".tr(),
+              title: "fastlimitless".trs(),
+              body: "provideserverfastlimitless".trs(),
             ),
           ],
           showSkipButton: true,
@@ -44,10 +44,10 @@ class IntroScreen extends StatelessWidget {
               });
             });
           },
-          next: Text("next".tr(), style: TextStyle(fontSize: 20, color: Colors.black)),
-          skip: Text("skip".tr(), style: TextStyle(fontSize: 20, color: Colors.black)),
+          next: Text("next".trs(), style: TextStyle(fontSize: 20, color: Colors.black)),
+          skip: Text("skip".trs(), style: TextStyle(fontSize: 20, color: Colors.black)),
           showNextButton: true,
-          done: Text("done".tr(), style: TextStyle(fontSize: 20, color: Colors.black)),
+          done: Text("done".trs(), style: TextStyle(fontSize: 20, color: Colors.black)),
         ),
       ),
     );

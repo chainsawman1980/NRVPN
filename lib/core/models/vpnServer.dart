@@ -57,12 +57,12 @@ abstract class VpnServerModel extends Model {
       Navigator.pop(context);
     } else {
       NAlertDialog(
-        title: Text("error_server_title".tr()),
-        content: Text("error_server_desc".tr()),
+        title: Text("error_server_title".trs()),
+        content: Text("error_server_desc".trs()),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text("understand".tr()),
+            child: Text("understand".trs()),
             style: ButtonStyle(shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)))),
           )
         ],

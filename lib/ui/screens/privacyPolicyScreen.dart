@@ -30,24 +30,24 @@ class _PrivacyPolicyIntroScreenState extends State<PrivacyPolicyIntroScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("privacypolicy_title".tr(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                child: Text("privacypolicy_title".trs(), style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 child: ListView(
                   physics: BouncingScrollPhysics(),
                   padding: EdgeInsets.all(20),
                   children: [
-                    Text("privacypolicy_subtitle".tr().replaceAll("\$appname", appname)),
+                    Text("privacypolicy_subtitle".trs().replaceAll("\$appname", appname)),
                     ColumnDivider(),
-                    Text("privacypolicy_h2".tr(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    Text("privacypolicy_h2".trs(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                     ColumnDivider(space: 5),
-                    _privacyPointWidget("privacypolicy_title1".tr(), "privacypolicy_desc1".tr()),
+                    _privacyPointWidget("privacypolicy_title1".trs(), "privacypolicy_desc1".trs()),
                     ColumnDivider(),
-                    _privacyPointWidget("privacypolicy_title2".tr(), "privacypolicy_desc2".tr()),
+                    _privacyPointWidget("privacypolicy_title2".trs(), "privacypolicy_desc2".trs()),
                     ColumnDivider(),
-                    _privacyPointWidget("privacypolicy_title3".tr(), "privacypolicy_desc3".tr()),
+                    _privacyPointWidget("privacypolicy_title3".trs(), "privacypolicy_desc3".trs()),
                     ColumnDivider(),
-                    Text("privacypolicy_footer".tr(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))
+                    Text("privacypolicy_footer".trs(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))
                   ],
                 ),
               ),
@@ -62,7 +62,7 @@ class _PrivacyPolicyIntroScreenState extends State<PrivacyPolicyIntroScreen> {
                     ),
                   ),
                   child: Text(
-                    "accept_continue".tr(),
+                    "accept_continue".trs(),
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: _accAndContinueClick,

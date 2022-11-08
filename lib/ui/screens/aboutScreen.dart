@@ -16,7 +16,7 @@ class AboutScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(icon: Icon(LineIcons.angleLeft), onPressed: () => Navigator.pop(context)),
         elevation: 0,
-        title: Text("about".tr()),
+        title: Text("about".trs()),
         centerTitle: true,
       ),
       body: ListView(
@@ -36,7 +36,7 @@ class AboutScreen extends StatelessWidget {
             future: PackageInfo.fromPlatform(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Text("${"version".tr()} ${snapshot.data!.version}", textAlign: TextAlign.center);
+                return Text("${"version".trs()} ${snapshot.data!.version}", textAlign: TextAlign.center);
               } else {
                 return SizedBox.shrink();
               }
@@ -50,7 +50,7 @@ class AboutScreen extends StatelessWidget {
           ),
           ColumnDivider(),
           Text(
-            "$appname ${"about_detail".tr()}",
+            "$appname ${"about_detail".trs()}",
             textAlign: TextAlign.center,
           ),
         ],

@@ -5,25 +5,25 @@ class BannerMessages extends Model {
     this.title,
     this.content,
     this.imgPic,
-    this.jumpurl,
+    this.url,
   });
 
   String? title;
   String? content;
   String? imgPic;
-  String? jumpurl;
+  String? url;
 
   factory BannerMessages.fromJson(Map<String, dynamic> json) => BannerMessages(
     title: json["title"],
     content: json["content"],
     imgPic: json["imgPic"],
-    jumpurl: json["jumpurl"],
+    url: json["url"],
   );
 
   Map<String, dynamic> toJson() => {
     "title": title,
     "content": content,
     "imgPic": imgPic,
-    "jumpurl": jumpurl,
+    "url": url,
   };
 }

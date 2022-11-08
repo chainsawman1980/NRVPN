@@ -31,14 +31,14 @@ import 'localization.dart';
 /// Text('gender').tr(gender: _gender ? "female" : "male"), // gender
 /// ```
 /// {@endtemplate}
-String tr(
+String trs(
   String key, {
   List<String>? args,
   Map<String, String>? namedArgs,
   String? gender,
 }) {
   return Localization.instance
-      .tr(key, args: args, namedArgs: namedArgs, gender: gender);
+      .trs(key, args: args, namedArgs: namedArgs, gender: gender);
 }
 
 /// {@template plural}

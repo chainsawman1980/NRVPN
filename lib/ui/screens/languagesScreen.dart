@@ -23,7 +23,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: Text("setting_language".tr()),
+        title: Text("setting_language".trs()),
         leading: IconButton(
           icon: Icon(LineIcons.angleLeft),
           onPressed: () => Navigator.pop(context),
@@ -33,7 +33,7 @@ class _LanguagesScreenState extends State<LanguagesScreen> {
         builder: (context, value, child) => ListView(
           children: value.languages!
               .map((e) => ListTile(
-                    title: Text(e.label!.tr()),
+                    title: Text(e.label!.trs()),
                     trailing: context.locale == Locale(e.languageCode!, e.countryCode)
                         ? SizedBox(
                             height: 30,

@@ -17,7 +17,7 @@ extension TextTranslateExtension on Text {
           Map<String, String>? namedArgs,
           String? gender}) =>
       Text(
-          ez.tr(
+          ez.trs(
             data ?? '',
             args: args,
             namedArgs: namedArgs,
@@ -75,12 +75,12 @@ extension TextTranslateExtension on Text {
 /// ```
 extension StringTranslateExtension on String {
   /// {@macro tr}
-  String tr({
+  String trs({
     List<String>? args,
     Map<String, String>? namedArgs,
     String? gender,
   }) =>
-      ez.tr(this, args: args, namedArgs: namedArgs, gender: gender);
+      ez.trs(this, args: args, namedArgs: namedArgs, gender: gender);
 
   /// {@macro plural}
   String plural(
