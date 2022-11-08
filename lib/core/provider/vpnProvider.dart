@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:easy_localization/easy_localization.dart';
+import 'package:nizvpn/easy_local/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:provider/provider.dart';

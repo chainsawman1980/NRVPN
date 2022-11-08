@@ -13,7 +13,6 @@ dependencies:
   collection: ^1.15.0
   device_apps: ^2.1.1
   dio: ^4.0.0
-  easy_localization: ^3.0.0
   flutter_inapp_purchase: 
     git:
       url: https://github.com/mgonzalezc/flutter_inapp_purchase.git
@@ -35,8 +34,12 @@ dependencies:
   snapping_sheet: ^3.1.0
   get: ^4.6.5
   card_swiper: ^2.0.4
+  intl: ^0.17.0
+  easy_logger: ^0.0.2
 dev_dependencies:
   flutter_launcher_icons: ^0.9.2
+  flutter_localizations: # Add this line
+    sdk: flutter
   flutter_test:
     sdk: flutter
 

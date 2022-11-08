@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:nizvpn/easy_local/src/public_ext.dart';
 //import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +17,7 @@ import 'core/provider/vpnProvider.dart';
 import 'core/resources/environment.dart';
 import 'core/resources/warna.dart';
 import 'core/utils/preferences.dart';
+import 'easy_local/src/easy_localization_app.dart';
 import 'ui/screens/introScreen.dart';
 import 'ui/screens/mainScreen.dart';
 import 'ui/screens/privacyPolicyScreen.dart';

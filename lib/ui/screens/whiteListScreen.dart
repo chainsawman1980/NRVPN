@@ -1,5 +1,5 @@
 import 'package:device_apps/device_apps.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:nizvpn/easy_local/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 

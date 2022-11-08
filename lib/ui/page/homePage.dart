@@ -3,10 +3,11 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:card_swiper/card_swiper.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:nizvpn/easy_local/src/public_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:lottie/lottie.dart';
@@ -255,43 +256,31 @@ class _HomePageState extends State<HomePage> {
   ];
 
   Widget _topBannerWidget() {
-    return Container(
-      height: 160,
-      padding: const EdgeInsets.symmetric(horizontal: 0),
-      child: Consumer<VpnProvider>(
-        builder: (context, value, child) {
-          String tulisan = "unprotected".tr();
-          Color color = Colors.red;
+    return Obx(() =>
+        rxBanner.length>0?Container(
+          height: 160,
+          padding: const EdgeInsets.symmetric(horizontal: 0),
+          child:
+              Swiper(
+                  itemBuilder: (BuildContext context, int index) {
+                    return Image.asset(
+                      en_US[index],
+                      fit: BoxFit.cover,
+                    );
+                  },
+                  itemCount: 2,
+                  autoplay: true,
+                  pagination: SwiperPagination(),
+                  onTap: (int index) {
 
-          String stage = (value.vpnStage ?? NVPN.vpnDisconnected).toLowerCase();
-          if (stage == NVPN.vpnConnected.toLowerCase()) {
-            tulisan = "protected".tr();
-            color = Colors.green;
-          } else if (stage != NVPN.vpnDisconnected.toLowerCase()) {
-            tulisan = value.vpnStage!.replaceAll("_", " ");
-            color = Colors.orange;
-          } else {
-            tulisan = "unprotected".tr();
-            color = Colors.red;
-          }
-          return Swiper(
-            itemBuilder: (BuildContext context, int index) {
-              return Image.asset(
-                en_US[index],
-                fit: BoxFit.cover,
-              );
-            },
-            itemCount: 2,
-            autoplay: true,
-            pagination: SwiperPagination(),
-            onTap: (int index) {
+                  }
+                //control: SwiperControl(),
+              )
+          )
+      :ColumnDivider(space: 20)
 
-              }
-            //control: SwiperControl(),
-          );
-        },
-      ),
     );
+
   }
 
   Widget _topMessageWidget() {

@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:nizvpn/core/models/language.dart';
 import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
+import '../../easy_local/src/easy_localization_app.dart';
 import '../utils/preferences.dart';
 
 class UIProvider extends ChangeNotifier {

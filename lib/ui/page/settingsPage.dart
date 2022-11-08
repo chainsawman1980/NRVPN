@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:easy_localization/easy_localization.dart';
+import 'package:nizvpn/easy_local/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:in_app_update/in_app_update.dart';
