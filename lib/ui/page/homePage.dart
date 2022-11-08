@@ -6,6 +6,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:lottie/lottie.dart';
@@ -13,6 +14,7 @@ import 'package:ndialog/ndialog.dart';
 import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
+import '../../core/models/bannermessage.dart';
 import '../../core/provider/uiProvider.dart';
 import '../../core/provider/vpnProvider.dart';
 import '../../core/resources/environment.dart';
@@ -30,6 +32,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  RxList<BannerMessages> rxBanner = RxList<BannerMessages>();
+  @override
+  void initState()
+  {
+    getBanner();
+  }
+
+  Future<void> getBanner()
+  async {
+    rxBanner.value = await VpnProvider.getBanner(context);
+  }
   @override
   void didChangeDependencies() {
     VpnProvider.refreshInfoVPN(context);

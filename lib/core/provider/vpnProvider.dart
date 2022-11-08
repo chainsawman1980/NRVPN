@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../ui/screens/subscriptionDetailScreen.dart';
 import '../https/vpnServerHttp.dart';
+import '../models/bannermessage.dart';
 import '../models/vpnConfig.dart';
 import '../models/vpnServer.dart';
 import '../models/vpnStatus.dart';
@@ -97,6 +98,14 @@ class VpnProvider extends ChangeNotifier {
   Future<void> setRandom(BuildContext context) async {
     var resp = await VpnServerHttp(context).randomVpn();
     if (resp != null) vpnConfig = resp;
+  }
+
+  ///Set VPNConfig with random configuration that taken from Server!
+  static Future<List<BannerMessages>> getBanner(BuildContext context) async {
+    List<BannerMessages> banners = <BannerMessages>[];
+    var resp = await VpnServerHttp(context).bannermessage();
+    if (resp != null) banners = resp;
+    return banners;
   }
 
   ///Set VPNConfig that taken from Server by Slug
