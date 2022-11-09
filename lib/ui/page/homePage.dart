@@ -29,6 +29,7 @@ import '../../core/utils/preferences.dart';
 import '../components/customDivider.dart';
 import '../components/customImage.dart';
 import '../screens/subscriptionDetailScreen.dart';
+import 'newsmessage_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -334,6 +335,11 @@ class _HomePageState extends State<HomePage> {
       child: Stack(
         alignment: Alignment.center,
         children: [
+          Positioned(child: IconButton(onPressed: () {
+            Navigator.push(context, new MaterialPageRoute(builder: (context) => NewsMessagePage(
+                strTitle: "站内信",
+                blNavigation: false)),);
+          }, icon: Icon(Icons.message_outlined,color: Colors.grey,)),left: 0,),
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(children: [
