@@ -7,6 +7,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
+import 'package:nizvpn/easy_local/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -100,6 +101,13 @@ class NewsMessagePage extends BaseStatefulWidget<NewsMessageController> {
       ),
     );
   }
+
+  @override
+  bool showTitleBar() => true;
+
+  @override
+  String titleString() => "messages".trs();
+
 }
 
 class NewsMessageController extends BaseController {

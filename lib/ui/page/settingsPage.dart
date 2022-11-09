@@ -1,11 +1,14 @@
 import 'dart:io';
 
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:nizvpn/easy_local/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:ndialog/ndialog.dart';
+import 'package:nizvpn/ui/page/webview_page.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -182,12 +185,18 @@ class PengaturanPage extends StatelessWidget {
 
   void _tosClick() {
     var url = "https://nrvpn.com/terms-of-agreement/";
-    launchUrl(Uri.http(url));
+    Navigator.push(Get.context!, new MaterialPageRoute(builder: (context) => WebViewPage(
+        strUrl: url,
+        strTitle:"setting_tos".trs(),
+        blNavigation: true)),);
   }
 
   void _privacyPolicyClick(context) {
     var url = "https://nrvpn.com/privacy/";
-    launchUrl(Uri.http(url));
+    Navigator.push(Get.context!, new MaterialPageRoute(builder: (context) => WebViewPage(
+        strUrl: url,
+        strTitle:"setting_privacypolicy".trs(),
+        blNavigation: true)),);
   }
 
   void _aboutClick(context) {
