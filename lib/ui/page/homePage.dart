@@ -336,6 +336,7 @@ class _HomePageState extends State<HomePage> {
         alignment: Alignment.center,
         children: [
           Positioned(child: IconButton(onPressed: () {
+            Get.lazyPut(() => NewsMessageController());
             Navigator.push(context, new MaterialPageRoute(builder: (context) => NewsMessagePage(
                 strTitle: "站内信",
                 blNavigation: false)),);
