@@ -102,6 +102,14 @@
     "provideserverfastlimitless":"We provide you the fastest servers without limits",
     "Chinese":"Chinese",
     "English":"English",
-    "messages":"Messages"
-
+    "messages":"Messages",
+    "Pull to refresh": "Pull to refresh",
+    "Release ready": "Release ready",
+    "Refreshing...": "Refreshing...",
+    "Succeeded": "Succeeded",
+    "No more": "No more",
+    "Failed": "Failed",
+    "Last updated at %T": "Last updated at %T",
+    "Pull to load": "Pull to load",
+    "Loading...": "Loading..."
 }

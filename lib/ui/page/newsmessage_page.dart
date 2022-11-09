@@ -17,6 +17,7 @@ import '../../core/models/bannermessage.dart';
 import '../../core/provider/vpnProvider.dart';
 import '../widgets/base_stateful_widget.dart';
 import '../widgets/controller/base_controller.dart';
+import '../widgets/list_item.dart';
 
 class NewsMessagePage extends BaseStatefulWidget<NewsMessageController> {
   String? strTitle;
@@ -35,26 +36,26 @@ class NewsMessagePage extends BaseStatefulWidget<NewsMessageController> {
     return EasyRefresh(
       controller: controller.refreshController,
       header: ClassicHeader(
-        dragText: 'Pull to refresh'.tr,
-        armedText: 'Release ready'.tr,
-        readyText: 'Refreshing...'.tr,
-        processingText: 'Refreshing...'.tr,
-        processedText: 'Succeeded'.tr,
-        noMoreText: 'No more'.tr,
-        failedText: 'Failed'.tr,
-        messageText: 'Last updated at %T'.tr,
+        dragText: 'Pull to refresh'.trs(),
+        armedText: 'Release ready'.trs(),
+        readyText: 'Refreshing...'.trs(),
+        processingText: 'Refreshing...'.trs(),
+        processedText: 'Succeeded'.trs(),
+        noMoreText: 'No more'.trs(),
+        failedText: 'Failed'.trs(),
+        messageText: 'Last updated at %T'.trs(),
         safeArea: false,
       ),
       footer: ClassicFooter(
         position: IndicatorPosition.locator,
-        dragText: 'Pull to load'.tr,
-        armedText: 'Release ready'.tr,
-        readyText: 'Loading...'.tr,
-        processingText: 'Loading...'.tr,
-        processedText: 'Succeeded'.tr,
-        noMoreText: 'No more'.tr,
-        failedText: 'Failed'.tr,
-        messageText: 'Last updated at %T'.tr,
+        dragText: 'Pull to load'.trs(),
+        armedText: 'Release ready'.trs(),
+        readyText: 'Loading...'.trs(),
+        processingText: 'Loading...'.trs(),
+        processedText: 'Succeeded'.trs(),
+        noMoreText: 'No more'.trs(),
+        failedText: 'Failed'.trs(),
+        messageText: 'Last updated at %T'.trs(),
       ),
       refreshOnStart: false,
       refreshOnStartHeader: BuilderHeader(
@@ -89,12 +90,15 @@ class NewsMessagePage extends BaseStatefulWidget<NewsMessageController> {
       },
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return Card(
-            child: Container(
-              alignment: Alignment.center,
-              height: 80,
-              child: Text('${index + 1}'),
-            ),
+          BannerMessages bannermessage = controller.rxBanner.value[index];
+          return ListItem(
+            title: bannermessage.title!,
+            subtitle: bannermessage.content!,
+            divider: true,
+              trailing:Text(bannermessage.created_at!),
+            onTap: () {
+
+            },
           );
         },
         itemCount: controller.rxBanner.value.length,

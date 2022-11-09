@@ -172,61 +172,6 @@ class RootState extends State<Root> {
                 )
                     : SplashScreen(),
               )),
-      /*MaterialApp(
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        debugShowCheckedModeBanner: false,
-        locale: context.locale,
-        theme: ThemeData(
-          primaryColor: primaryColor,
-          fontFamily: GoogleFonts.poppins().fontFamily,
-          scaffoldBackgroundColor: Colors.white,
-          textButtonTheme: TextButtonThemeData(
-            style: ButtonStyle(
-              padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-              backgroundColor: MaterialStateProperty.all(Colors.transparent),
-              foregroundColor: MaterialStateProperty.all(Colors.black),
-              textStyle: MaterialStateProperty.all(TextStyle(color: Colors.black)),
-            ),
-          ),
-          buttonTheme: ButtonThemeData(
-            focusColor: Colors.grey.shade300,
-          ),
-          appBarTheme: AppBarTheme(
-            color: Colors.white,
-            iconTheme: IconThemeData(color: Colors.black),
-            titleTextStyle: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-        ),
-        home: ready
-            ? FutureBuilder<Preferences>(
-                future: Preferences.init(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    if (!snapshot.data!.firstOpen)
-                      {
-                        return Consumer<UIProvider>(
-                          builder: (context, value, child) => EasyLocalization(
-                            path: 'assets/languages',
-                            startLocale: value.selectedLocale ?? Locale("zh", "CN"),
-                            supportedLocales: value.locales!,
-                            useOnlyLangCode: true,
-                            child: IntroScreen(rootState: this),
-                          ),
-                        );
-                      }
-                    if (snapshot.data!.privacyPolicy) {
-                      return MainScreen();
-                    } else {
-                      return PrivacyPolicyIntroScreen(rootState: this);
-                    }
-                  } else {
-                    return SplashScreen();
-                  }
-                },
-              )
-            : SplashScreen(),
-      ),*/
     );
   }
 }
