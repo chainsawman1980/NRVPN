@@ -91,7 +91,8 @@ class SignupScreen extends GetView<SignupController> {
                     children: <Widget>[
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsets.only(left: 0, right: 0, top: 0),
+                          padding:
+                          EdgeInsets.only(left: 0, right: 0, top: 0),
                           child: SizedBox(
                             // <-- Your width
                             height: 50, // <-- Your height
@@ -101,62 +102,43 @@ class SignupScreen extends GetView<SignupController> {
                               focusNode: controller.trc20FocusNode,
                               decoration: InputDecoration(
                                 icon: Icon(Icons.sms),
-                                suffixIconConstraints:
-                                    BoxConstraints(minWidth: 0, minHeight: 0),
+                                suffixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
                                 suffixIcon: Container(
-                                  width: 160,
-                                  child: Obx(() => FlatButtonX(
-                                      disabledColorx: Colors.grey
-                                          .withOpacity(0.1), //按钮禁用时的颜色
-                                      disabledTextColorx:
-                                          Colors.white, //按钮禁用时的文本颜色
-                                      textColorx:
-                                          controller.isButtonEnable.value
-                                              ? Colors.white
-                                              : Colors.black
-                                                  .withOpacity(0.2), //文本颜色
-                                      colorx: Colors.grey
-                                              .withOpacity(0.1), //按钮的颜色
-                                      shapex: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(50),
-                                          ),
-                                          side: BorderSide(
-                                              color: Colors.grey, width: 0.5)),
-                                      onPressedx: () {
-                                        if (controller.isButtonEnable.value) {
-                                          controller.captaText.value = Uuid().v1();
-                                          HttpUrl.DEVICE_UUID = controller.captaText.value;
-                                          log(controller.captaText.value);
-                                          controller.buttonClickListen();
-                                        }
-                                      },
-                                      childx: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(height:40,child:Image.network(
-                                            HttpUrl.BASE_URL +
-                                                "/api/user/captcha?deviceId=" +
-                                                controller.captaText.value,
-                                            fit: BoxFit.cover,
-                                            key: UniqueKey(),
-                                          ),),
-                                          Container(width: 5,),
-                                          controller.isButtonEnable.value? const Icon(Icons.refresh,color:Colors.grey): Text(
-                                            controller.buttonText.value,
-                                            style: const TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ],
-                                      ))),
+                                  width: 120,
+                                  child: Obx(() =>FlatButtonX(
+                                    disabledColorx:
+                                    Colors.grey.withOpacity(0.1), //按钮禁用时的颜色
+                                    disabledTextColorx: Colors.white, //按钮禁用时的文本颜色
+                                    textColorx: controller.isButtonEnable.value
+                                        ? Colors.white
+                                        : Colors.black.withOpacity(0.2), //文本颜色
+                                    colorx: controller.isButtonEnable.value
+                                        ? colorScheme.primary
+                                        : Colors.grey.withOpacity(0.1), //按钮的颜色
+                                    shapex: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(50),
+                                        ),
+                                        side:
+                                        BorderSide(color: Colors.grey, width: 0.5)),
+                                    onPressedx: () {
+                                      if (controller.isButtonEnable.value) {
+                                        controller.buttonClickListen();
+                                      }
+                                    },
+                                    childx: Text(
+                                      controller.buttonText.value,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  )),
                                 ),
                                 hintText: 'login_verifycode_hint'.tr,
                                 hintStyle: TextStyle(fontSize: 14),
                               ),
                               autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
+                              AutovalidateMode.onUserInteraction,
                               validator: controller.passwordValidator,
                               // obscureText: true,
                             ),

@@ -117,7 +117,8 @@ class LoginController extends AuthController {
       try {
         String? deviceId = await PlatformDeviceId.getDeviceId;
         String captchaResult = await api.captcha(<String, String>{
-          'deviceId': deviceId!,
+          'regType': "2",
+          'key': "lamyz0417@qq.com",
         });
         captaText.value = captchaResult;//base64String(captchaResult);
       } catch (err, _) {

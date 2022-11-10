@@ -10,6 +10,7 @@ import 'package:platform_device_id/platform_device_id.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../widgets/constant/http_url.dart';
+import '../auth/Loading_overlay.dart';
 import '../auth/auth_api_service.dart';
 import '../auth/auth_controller.dart';
 import 'package:nizvpn/ui/screens/auth/cache_service.dart';
@@ -68,6 +69,24 @@ class SignupController extends AuthController {
     if (isButtonEnable.value) {
       //当按钮可点击时
       isButtonEnable.value = false; //按钮状态标记
+      try {
+        await sendsmscode();
+        log('response signup');
+      } catch (err, _) {
+        printError(info: err.toString());
+        LoadingOverlay.hide();
+        Get.snackbar(
+          "error".tr,
+          err.toString(),
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red.withOpacity(.75),
+          colorText: Colors.white,
+          icon: const Icon(Icons.error,
+              color: Colors.white),
+          shouldIconPulse: true,
+          barBlur: 20,
+        );
+      } finally {}
       initTimer();
     }
   }
@@ -179,11 +198,6 @@ class SignupController extends AuthController {
     return null;
   }
 
-//code	integer($int64)
-// confirm	string
-// password	string
-// playerName	string
-// trc20Address	string
 
   Future<void> signup() async {
     log('${emailController.text}, ${passwordController.text}');
@@ -207,6 +221,22 @@ class SignupController extends AuthController {
       }
     } else {
       throw Exception('An error occurred, invalid inputs value'.tr);
+    }
+  }
+
+  Future<void> sendsmscode() async {
+    log('${phoneNumController.text}, ${phoneNumController.text}');
+
+    try {
+      await senSmsCode(<String, String>{
+        'phoneNumber': phoneNumController.text,
+      });
+    } catch (err, _) {
+      // message = 'There is an issue with the app during request the data, '
+      //         'please contact admin for fixing the issues ' +
+
+      phoneVerifyCodeController.clear();
+      rethrow;
     }
   }
 

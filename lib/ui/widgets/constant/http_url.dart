@@ -11,7 +11,7 @@ class HttpUrl {
 
   static const String BASE_GATEWAY_URL = "https://test-gateway.get88.cn/";
 
-  static const String BASE_GCPAY_URL = "http://154.85.63.227:8088/";
+  static const String BASE_GCPAY_URL = "http://admin.ssdvpn.com/";
 
   static const String clientId = 'CLIENT_ID';
   static const String clientSecret = 'CLIENT_SECRET';

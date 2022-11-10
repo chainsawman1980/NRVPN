@@ -32,7 +32,7 @@ abstract class GCPayApi {
   Future<BaseResult<String>> getBanner();
 
 
-  @GET("/api/user/captcha")
+  @GET("/api/login/getLoginCaptcha")
   Future<String> captcha(@Body() Map<String, dynamic> map);
 
 
@@ -40,7 +40,9 @@ abstract class GCPayApi {
   @POST("/api/user/login")
   Future<BaseResult<LoginEntity>> login(@Body() Map<String, dynamic> map);
 
-
+  //  发送手机验证码
+  @POST("/api/user/senSmsCode")
+  Future<BaseResult<String>> senSmsCode(@Body() Map<String, dynamic> map);
   //  玩家注册
   @POST("/api/user/register")
   Future<BaseResult<UserRegistrationRespDataEntity>> register(@Body() Map<String, dynamic> map);

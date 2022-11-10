@@ -58,13 +58,32 @@ class _GCPayApi implements GCPayApi {
     final _result = await _dio.fetch<String>(
         _setStreamType<String>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/user/captcha',
+                .compose(_dio.options, '/api/login/getLoginCaptcha',
                 queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;
     return value;
   }
 
+  @override
+  Future<BaseResult<String>> senSmsCode(map) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    queryParameters.addAll(map);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResult<LoginEntity>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/user/senSmsCode',
+                queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResult<String>.fromJson(
+      _result.data!,
+          (json) => json as String,
+    );
+    return value;
+  }
 
   @override
   Future<BaseResult<LoginEntity>> login(map) async {
