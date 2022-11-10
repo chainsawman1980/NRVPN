@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nizvpn/easy_local/src/public_ext.dart';
 //import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -13,7 +17,16 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:nizvpn/core/provider/purchaseProvider.dart';
+import 'package:nizvpn/ui/routes/app_pages.dart';
+import 'package:nizvpn/ui/routes/app_routes.dart';
+import 'package:nizvpn/ui/screens/auth/auth_api_service.dart';
+import 'package:nizvpn/ui/screens/auth/auth_controller.dart';
+import 'package:nizvpn/ui/screens/auth/cache_service.dart';
+import 'package:nizvpn/ui/screens/http/gcpay_api.dart';
+import 'package:nizvpn/ui/widgets/app_binding.dart';
 import 'package:nizvpn/ui/widgets/res/theme_page.dart';
+import 'package:nizvpn/ui/widgets/utils/injection.dart';
+import 'package:nizvpn/ui/widgets/utils/storage_prefs.dart';
 import 'package:provider/provider.dart';
 
 import 'core/provider/uiProvider.dart';
@@ -27,11 +40,26 @@ import 'ui/screens/mainScreen.dart';
 import 'ui/screens/privacyPolicyScreen.dart';
 //import 'package:firebase_core/firebase_core.dart';
 
+Future<void> initializeApp() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Injection().init();
+
+  final prefs = StoragePrefs();
+  await prefs.initPrefs();
+
+  await GetStorage.init();
+
+  Get.put(AuthController(Get.put(AuthApiService()), Get.put(CacheService()), Get.put(GCPayApi())),
+      permanent: true);
+
+  log('Initialize');
+}
+
 void main() {
   runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
     //await Firebase.initializeApp();
-
+    await initializeApp();
     Provider.debugCheckInvalidValueType = null;
     await EasyLocalization.ensureInitialized();
     if (kDebugMode) {
@@ -143,6 +171,9 @@ class RootState extends State<Root> {
                 // initialRoute: AppRoutes.MainPage,
                 // initialBinding: AppBinding(),
                 // getPages: AppPages.pages,
+                initialRoute: AppRoutes.MainPage,
+                initialBinding: AppBinding(),
+                getPages: AppPages.pages,
                 home: ready
                     ? FutureBuilder<Preferences>(
                   future: Preferences.init(),

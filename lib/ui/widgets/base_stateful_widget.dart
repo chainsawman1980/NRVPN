@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controller/base_controller.dart';
-import 'toast/toast_mixin.dart';
+import 'mixins/toast_mixin.dart';
 import 'res/colors.dart';
 import 'load_state_widget.dart';
 import 'loading_widget.dart';

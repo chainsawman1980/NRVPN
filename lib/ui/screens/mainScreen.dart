@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/bindings_interface.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:nizvpn/core/provider/vpnProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
@@ -11,29 +15,17 @@ import '../components/customImage.dart';
 import '../page/homePage.dart';
 import '../page/settingsPage.dart';
 import '../page/sharePage.dart';
+import '../widgets/base_stateful_widget.dart';
+import '../widgets/controller/base_controller.dart';
+import '../widgets/utils/log_utils.dart';
 import 'selectVpnScreen.dart';
 
-class MainScreen extends StatefulWidget {
-  @override
-  _MainScreenState createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  double selectServerOpacity = 0;
-  final ScrollController _scrollController = ScrollController();
-  @override
-  void initState() {
-    super.initState();
-  }
+class MainScreen extends BaseStatefulWidget<MainController> {
+  MainScreen({Key? key}) : super(key: key);
 
   @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget buildContent(BuildContext context) {
+    // TODO: implement buildContent
     return WillPopScope(
       onWillPop: () async {
         if (UIProvider.instance(context).sheetController.currentPosition > 300) {
@@ -56,9 +48,7 @@ class _MainScreenState extends State<MainScreen> {
             if (_val > 1) return;
             if (_val < 0.5) _val = 0;
             if (_val > 1) _val = 1;
-            setState(() {
-              selectServerOpacity = _val;
-            });
+            controller.selectServerOpacity = _val;
           },
           initialSnappingPosition: SnappingPosition.factor(
             positionFactor: 0.16,
@@ -83,7 +73,7 @@ class _MainScreenState extends State<MainScreen> {
           grabbingHeight: 100,
           sheetBelow: SnappingSheetContent(
             child: Container(
-              child: SelectVpnScreen(scrollController: _scrollController),
+              child: SelectVpnScreen(scrollController: controller._scrollController),
               decoration: BoxDecoration(
                 boxShadow: [BoxShadow(color: Colors.black.withOpacity(.1), offset: Offset(0, -1), blurRadius: 10)],
                 color: Colors.white,
@@ -210,6 +200,35 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
+class MainController extends BaseController {
+  DateTime? lastPopTime;
+  final RxInt _curPage = 0.obs;
+  final PageController pageController = PageController(initialPage: 0);
+  RxInt selected = 0.obs;
+  final List<Widget> naviItems = [
+  ];
+
+  double selectServerOpacity = 0;
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void loadNet() {}
+
+  @override
+  void onReady() {
+    super.onReady();
+    showSuccess();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+}
+
+
 class MainScreenProvider extends ChangeNotifier {
   int _curIndex = 0;
 
@@ -220,4 +239,12 @@ class MainScreenProvider extends ChangeNotifier {
   }
 
   static MainScreenProvider instance(BuildContext context) => Provider.of(context, listen: false);
+}
+
+class MainBinding extends Bindings {
+  @override
+  void dependencies() {
+    LogD(">>>>>>>>>>>>开始注入代码");
+    Get.lazyPut(() => MainController());
+  }
 }

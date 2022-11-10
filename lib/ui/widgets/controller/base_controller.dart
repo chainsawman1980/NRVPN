@@ -2,12 +2,13 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:event_bus/event_bus.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../ext/get_extension.dart';
 import '../http/app_except.dart';
 import '../http/result/base_result.dart';
 import '../http/result/base_wan_result.dart';
-import '../toast/toast_mixin.dart';
+import '../mixins/toast_mixin.dart';
 import '../utils/log_utils.dart';
 
 ///具有状态控制和网络请求能力的controller，等价MVVM中的ViewModel
@@ -54,7 +55,7 @@ abstract class BaseController<M> extends SuperController with ToastMixin {
       if (error != null) {
         error(e);
       }
-      showToast(e.toString());
+      Fluttertoast.showToast(msg:e.toString());
     }).whenComplete(() {
       if (showLoading) {
         Get.dismiss();
@@ -82,7 +83,7 @@ abstract class BaseController<M> extends SuperController with ToastMixin {
       if (error != null) {
         error(e);
       }
-      showToast(e.toString());
+      Fluttertoast.showToast(msg:e.toString());
     }).whenComplete(() {
       if (showLoading) {
         Get.dismiss();
@@ -100,7 +101,7 @@ abstract class BaseController<M> extends SuperController with ToastMixin {
       onValue(t);
     } else {
       if (handleError) {
-        showToast(t.msg);
+        Fluttertoast.showToast(msg:t.msg);
         showError(errorMessage: t.msg);
       } else {
         onValue(t);
@@ -121,7 +122,7 @@ abstract class BaseController<M> extends SuperController with ToastMixin {
       onValue(t);
     } else {
       if (handleError) {
-        showToast(t.errorMsg);
+        Fluttertoast.showToast(msg:t.errorMsg);
         showError(errorMessage: t.errorMsg);
       } else {
         onValue(t);
