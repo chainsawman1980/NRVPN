@@ -136,5 +136,9 @@
     "forgetpasswordcontactCSR": "Forget Password?Contact Customer Server",
     "registeraccount": "No account?Signup Now",
     "noaccount": "No account?",
-    "contactcustomer": "Customer Service"
+    "contactcustomer": "Customer Service",
+    "Please this field must be filled" : "Please this field must be filled",
+    "Invalid mobile number or email" : "Username must be at least 4 characters in length",
+    "Password must be at least 6 characters in length" : "Password must be at least 6 characters in length",
+    "VerifyCode must be at least 4 characters in length" : "VerifyCode must be at least 4 characters in length"
 }

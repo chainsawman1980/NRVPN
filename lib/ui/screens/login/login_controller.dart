@@ -5,6 +5,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nizvpn/easy_local/easy_localization.dart';
 
 import 'package:nizvpn/ui/screens/auth/auth_controller.dart';
 import 'package:nizvpn/ui/screens/auth/auth_api_service.dart';
@@ -14,6 +15,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 
 import 'package:nizvpn/ui/screens/http/gcpay_api.dart';
+
+import '../../widgets/utils/validate_utils.dart';
 
 
 
@@ -45,9 +48,9 @@ class LoginController extends AuthController {
             timer.cancel(); //倒计时结束取消定时器
             isButtonEnable.value = true; //按钮可点击
             count.value = 60; //重置时间
-            buttonText.value = ''; //重置按钮文本
+            buttonText.value = '发送验证码'; //重置按钮文本
           } else {
-            buttonText.value = count.value.toString(); //更新文本内容
+            buttonText.value = '重新发送('+ count.value.toString() +')'; //更新文本内容
           }
         });
   }
@@ -69,6 +72,7 @@ class LoginController extends AuthController {
     ImageCache  imageCache = PaintingBinding.instance.imageCache;
     imageCache.clear();
     imageCache.clearLiveImages();
+    showSuccess();
   }
   @override
   void onClose() {
@@ -131,12 +135,34 @@ class LoginController extends AuthController {
 
   }
 
+  String? userNameValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Please this field must be filled'.trs();
+    }
+    if (!ValidateUtils().isEmail(value)&&!ValidateUtils().isChinaPhoneNumber(value)) {
+      return 'Invalid mobile number or email'.trs();
+    }
+    // Return null if the entered password is valid
+    return null;
+  }
+
   String? passwordValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Please this field must be filled'.tr;
+      return 'Please this field must be filled'.trs();
     }
-    if (value.trim().length < 3) {
-      return 'Password must be at least 8 characters in length'.tr;
+    if (value.trim().length < 6) {
+      return 'Password must be at least 6 characters in length'.trs();
+    }
+    // Return null if the entered password is valid
+    return null;
+  }
+
+  String? verifyCodeValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Please this field must be filled'.trs();
+    }
+    if (value.trim().length < 4) {
+      return 'VerifyCode must be at least 4 characters in length'.trs();
     }
     // Return null if the entered password is valid
     return null;

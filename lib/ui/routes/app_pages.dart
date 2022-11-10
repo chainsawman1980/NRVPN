@@ -19,7 +19,7 @@ class AppPages {
   static List<GetPage> pages = [
     GetPage(
         name: AppRoutes.LoginPage,
-        page: () => const LoginScreen(),
+        page: () => LoginScreen(),
         binding: LoginBinding(),
         transition: Transition.downToUp),
     GetPage(

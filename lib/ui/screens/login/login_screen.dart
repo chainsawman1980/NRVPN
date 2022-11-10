@@ -6,6 +6,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:nizvpn/easy_local/easy_localization.dart';
+import 'package:nizvpn/ui/widgets/base_stateful_widget.dart';
 
 import 'package:uuid/uuid.dart';
 
@@ -18,10 +19,7 @@ import '../auth/Loading_overlay.dart';
 import 'package:nizvpn/ui/screens/auth/cache_service.dart';
 import 'login_controller.dart';
 
-
-class LoginScreen extends GetView<LoginController> {
-  const LoginScreen({Key? key}) : super(key: key);
-
+class LoginScreen extends BaseStatefulWidget<LoginController> {
   void openLanguageDialog() {
     SmartDialog.show(
       backDismiss: false,
@@ -54,7 +52,10 @@ class LoginScreen extends GetView<LoginController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Image.asset('assets/images/language_english.png'),
+                        Image.asset(
+                          'assets/icons/flags/us.png',
+                          height: 30,
+                        ),
                         Text('English'.trs(), textScaleFactor: 2),
                       ],
                     ),
@@ -73,7 +74,10 @@ class LoginScreen extends GetView<LoginController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Image.asset('assets/images/language_chinese.png'),
+                        Image.asset(
+                          'assets/icons/flags/cn.png',
+                          height: 30,
+                        ),
                         Text('Chinese'.trs(), textScaleFactor: 2),
                       ],
                     ),
@@ -94,41 +98,17 @@ class LoginScreen extends GetView<LoginController> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildContent(BuildContext context) {
     final ThemeData themeData = Theme.of(Get.context!);
     final ColorScheme colorScheme = themeData.colorScheme;
     final backgroundColor = themeData.colorScheme.surfaceVariant;
     final foregroundColor = themeData.colorScheme.surface;
     final primaryTextTheme = themeData.textTheme;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('login'.trs()),
-        // leading: IconButton(
-        //   color: colorScheme.primary,
-        //   icon: const Icon(Icons.arrow_back_ios),
-        //   onPressed: () async {
-        //     // onBackPressed();
-        //     var canPop = navigator?.canPop();
-        //     if (canPop != null && canPop) {
-        //       Get.back();
-        //     } else {
-        //       SystemNavigator.pop();
-        //     }
-        //   },
-        // ),
-        actions: [
-          IconButton(
-            color: colorScheme.onPrimary,
-            icon: const Icon(Icons.language),
-            onPressed: () async {
-              openLanguageDialog();
-            },
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
+    return SafeArea(
+        child: Center(
+      child: SingleChildScrollView(
         child: Container(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.only(left: 16.0, right: 16),
             child: Form(
               key: controller.loginFormKey,
               child: Column(
@@ -165,7 +145,7 @@ class LoginScreen extends GetView<LoginController> {
                         hintStyle: TextStyle(fontSize: 14),
                       ),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: controller.validator,
+                      validator: controller.userNameValidator,
                     ),
                   ),
                   Container(
@@ -182,7 +162,7 @@ class LoginScreen extends GetView<LoginController> {
                         hintText: 'login_password_hint'.trs(),
                         hintStyle: TextStyle(fontSize: 14),
                       ),
-                      validator: controller.validator,
+                      validator: controller.passwordValidator,
                       obscureText: true,
                     ),
                   ),
@@ -196,8 +176,7 @@ class LoginScreen extends GetView<LoginController> {
                     children: <Widget>[
                       Expanded(
                         child: Padding(
-                          padding:
-                          EdgeInsets.only(left: 0, right: 0, top: 0),
+                          padding: EdgeInsets.only(left: 0, right: 0, top: 0),
                           child: SizedBox(
                             // <-- Your width
                             height: 50, // <-- Your height
@@ -207,44 +186,50 @@ class LoginScreen extends GetView<LoginController> {
                               focusNode: controller.trc20FocusNode,
                               decoration: InputDecoration(
                                 icon: Icon(Icons.sms),
-                                suffixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
+                                suffixIconConstraints:
+                                    BoxConstraints(minWidth: 0, minHeight: 0),
                                 suffixIcon: Container(
-                                  width: 120,
-                                  child: Obx(() =>FlatButtonX(
-                                    disabledColorx:
-                                    Colors.grey.withOpacity(0.1), //按钮禁用时的颜色
-                                    disabledTextColorx: Colors.white, //按钮禁用时的文本颜色
-                                    textColorx: controller.isButtonEnable.value
-                                        ? Colors.white
-                                        : Colors.black.withOpacity(0.2), //文本颜色
-                                    colorx: controller.isButtonEnable.value
-                                        ? colorScheme.primary
-                                        : Colors.grey.withOpacity(0.1), //按钮的颜色
-                                    shapex: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(50),
+                                  width: 140,
+                                  child: Obx(() => FlatButtonX(
+                                        disabledColorx: Colors.grey
+                                            .withOpacity(0.1), //按钮禁用时的颜色
+                                        disabledTextColorx:
+                                            Colors.white, //按钮禁用时的文本颜色
+                                        textColorx:
+                                            controller.isButtonEnable.value
+                                                ? Colors.white
+                                                : Colors.black
+                                                    .withOpacity(0.2), //文本颜色
+                                        colorx: controller.isButtonEnable.value
+                                            ? colorScheme.primary
+                                            : Colors.grey
+                                                .withOpacity(0.1), //按钮的颜色
+                                        shapex: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(50),
+                                            ),
+                                            side: BorderSide(
+                                                color: Colors.grey,
+                                                width: 0.5)),
+                                        onPressedx: () {
+                                          if (controller.isButtonEnable.value) {
+                                            controller.buttonClickListen();
+                                          }
+                                        },
+                                        childx: Text(
+                                          controller.buttonText.value,
+                                          style: const TextStyle(
+                                            fontSize: 13,
+                                          ),
                                         ),
-                                        side:
-                                        BorderSide(color: Colors.grey, width: 0.5)),
-                                    onPressedx: () {
-                                      if (controller.isButtonEnable.value) {
-                                        controller.buttonClickListen();
-                                      }
-                                    },
-                                    childx: Text(
-                                      controller.buttonText.value,
-                                      style: const TextStyle(
-                                        fontSize: 13,
-                                      ),
-                                    ),
-                                  )),
+                                      )),
                                 ),
                                 hintText: 'login_verifycode_hint'.trs(),
                                 hintStyle: TextStyle(fontSize: 14),
                               ),
                               autovalidateMode:
-                              AutovalidateMode.onUserInteraction,
-                              validator: controller.passwordValidator,
+                                  AutovalidateMode.onUserInteraction,
+                              validator: controller.verifyCodeValidator,
                               // obscureText: true,
                             ),
                           ),
@@ -353,6 +338,16 @@ class LoginScreen extends GetView<LoginController> {
               ),
             )),
       ),
-    );
+    ));
   }
+
+  @override
+
+  ///是否展示回退按钮
+  bool showBackButton() => false;
+
+  @override
+
+  ///是否展示标题
+  bool showTitleBar() => false;
 }

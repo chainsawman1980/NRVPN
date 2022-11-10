@@ -42,7 +42,12 @@ abstract class GCPayApi {
 
   //  发送手机验证码
   @POST("/api/user/senSmsCode")
-  Future<BaseResult<String>> senSmsCode(@Body() Map<String, dynamic> map);
+  Future<BaseResult<String>> senRegSmsCode(@Body() Map<String, dynamic> map);
+
+  //  发送手机验证码
+  @POST("/api/user/senSmsCode")
+  Future<BaseResult<String>> senLoginSmsCode(@Body() Map<String, dynamic> map);
+
   //  玩家注册
   @POST("/api/user/register")
   Future<BaseResult<UserRegistrationRespDataEntity>> register(@Body() Map<String, dynamic> map);

@@ -83,12 +83,45 @@ class AuthController extends BaseController {
     return tokenData;
   }
 
-  Future<TokenModel?> senSmsCode(Map<String, dynamic> data) async {
+  Future<TokenModel?> senRegSmsCode(Map<String, dynamic> data) async {
     TokenModel? tokenData;
     String errorM =
         'An error occurred while senSmsCode, please contact the administrator.';
     try {
-      var response = await api.senSmsCode(data);
+      var response = await api.senRegSmsCode(data);
+      errorM = response.msg!;
+
+      log('is senSmsCode : ${response.toString()}');
+      if (response.code == 200) {
+        log('senSmsCodesuccess');
+        showToast("send_sms_success".tr,
+            gravity: ToastGravity.CENTER);
+        // tokenData = await editPass(<String, String>{
+        //   'confirm': data['confirm'],
+        //   'original': data['original'],
+        //   'password': data['password'],
+        //   'playerName' : data['playerName'],
+        //}
+        //);
+      } else {
+        // var message = response.body['error_description'];
+
+        throw Exception(errorM);
+      }
+    } catch (e) {
+      // printLog(e);
+      printError(info: e.toString());
+      throw Exception(errorM);
+    }
+    return tokenData;
+  }
+
+  Future<TokenModel?> senLoginSmsCode(Map<String, dynamic> data) async {
+    TokenModel? tokenData;
+    String errorM =
+        'An error occurred while senSmsCode, please contact the administrator.';
+    try {
+      var response = await api.senLoginSmsCode(data);
       errorM = response.msg!;
 
       log('is senSmsCode : ${response.toString()}');

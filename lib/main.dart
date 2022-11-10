@@ -23,6 +23,8 @@ import 'package:nizvpn/ui/screens/auth/auth_api_service.dart';
 import 'package:nizvpn/ui/screens/auth/auth_controller.dart';
 import 'package:nizvpn/ui/screens/auth/cache_service.dart';
 import 'package:nizvpn/ui/screens/http/gcpay_api.dart';
+import 'package:nizvpn/ui/screens/login/login_controller.dart';
+import 'package:nizvpn/ui/screens/login/login_screen.dart';
 import 'package:nizvpn/ui/widgets/app_binding.dart';
 import 'package:nizvpn/ui/widgets/res/theme_page.dart';
 import 'package:nizvpn/ui/widgets/utils/injection.dart';
@@ -49,6 +51,9 @@ Future<void> initializeApp() async {
 
   await GetStorage.init();
 
+
+      Get.put(LoginController(Get.put(AuthApiService()), Get.put(CacheService()), Get.put(GCPayApi())),
+  permanent: true);
   Get.put(MainController());
   Get.put(AuthController(Get.put(AuthApiService()), Get.put(CacheService()), Get.put(GCPayApi())),
       permanent: true);
@@ -126,6 +131,7 @@ class RootState extends State<Root> {
 
   @override
   Widget build(BuildContext context) {
+    CacheService caches = Get.find<CacheService>();
     return Shortcuts(
       shortcuts: {
         LogicalKeySet(LogicalKeyboardKey.select): ActivateIntent(),
@@ -172,7 +178,7 @@ class RootState extends State<Root> {
                 // initialRoute: AppRoutes.MainPage,
                 // initialBinding: AppBinding(),
                 // getPages: AppPages.pages,
-                initialRoute: AppRoutes.MainPage,
+                //initialRoute: AppRoutes.MainPage,
                 initialBinding: AppBinding(),
                 getPages: AppPages.pages,
                 home: ready
@@ -193,7 +199,15 @@ class RootState extends State<Root> {
                         );
                       }
                       if (snapshot.data!.privacyPolicy) {
-                        return MainScreen();
+                        if(caches.isLogin())
+                          {
+                            return MainScreen();
+                          }
+                        else
+                          {
+                            return LoginScreen();
+                          }
+
                       } else {
                         return PrivacyPolicyIntroScreen(rootState: this);
                       }

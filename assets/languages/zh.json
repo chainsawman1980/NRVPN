@@ -139,5 +139,9 @@
     "registeraccount": "没有账号?立即注册",
     "noaccount": "没有账号?",
     "contactcustomer": "联系客服",
-    "signup": "注册"
+    "signup": "注册",
+    "Please this field must be filled" : "请填写此项",
+    "Invalid mobile number or email" : "无效的手机号或者邮箱",
+    "Password must be at least 6 characters in length" : "密码必须至少6位",
+    "VerifyCode must be at least 4 characters in length" : "验证码必须至少4位"
 }

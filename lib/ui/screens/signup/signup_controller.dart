@@ -42,7 +42,7 @@ class SignupController extends AuthController {
   RxBool isButtonEnable = false.obs;      //按钮初始状态  是否可点击
   RxInt count = 60.obs;                     //初始倒计时时间
   Timer? timer;
-  RxString buttonText = '60'.obs;   //初始文本
+  RxString buttonText = '发送验证码'.obs;   //初始文本
   RxString captaText = HttpUrl.DEVICE_UUID.obs;
 
   SignupController(
@@ -58,9 +58,9 @@ class SignupController extends AuthController {
             timer.cancel(); //倒计时结束取消定时器
             isButtonEnable.value = true; //按钮可点击
             count.value = 60; //重置时间
-            buttonText.value = ''; //重置按钮文本
+            buttonText.value = '发送验证码'; //重置按钮文本
           } else {
-            buttonText.value = count.value.toString(); //更新文本内容
+            buttonText.value = '重新发送('+ count.value.toString() +')'; //更新文本内容 //更新文本内容
           }
         });
   }
@@ -70,7 +70,7 @@ class SignupController extends AuthController {
       //当按钮可点击时
       isButtonEnable.value = false; //按钮状态标记
       try {
-        await sendsmscode();
+        await sendRegsmscode();
         log('response signup');
       } catch (err, _) {
         printError(info: err.toString());
@@ -224,12 +224,14 @@ class SignupController extends AuthController {
     }
   }
 
-  Future<void> sendsmscode() async {
+  Future<void> sendRegsmscode() async {
     log('${phoneNumController.text}, ${phoneNumController.text}');
 
     try {
-      await senSmsCode(<String, String>{
-        'phoneNumber': phoneNumController.text,
+
+      await senRegSmsCode(<String, String>{
+        'regType': phoneNumController.text,
+        'key': phoneNumController.text,
       });
     } catch (err, _) {
       // message = 'There is an issue with the app during request the data, '

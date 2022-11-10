@@ -27,7 +27,8 @@ class SignupScreen extends GetView<SignupController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('signup'.trs()),
+        backgroundColor: colorScheme.primary,
+        title: Text('signup'.trs(),style: TextStyle(color:colorScheme.onPrimary)),
         leading: IconButton(
           color: colorScheme.onPrimary,
           icon: const Icon(Icons.arrow_back_ios),
@@ -105,7 +106,7 @@ class SignupScreen extends GetView<SignupController> {
                                 icon: Icon(Icons.sms),
                                 suffixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
                                 suffixIcon: Container(
-                                  width: 120,
+                                  width: 140,
                                   child: Obx(() =>FlatButtonX(
                                     disabledColorx:
                                     Colors.grey.withOpacity(0.1), //按钮禁用时的颜色
