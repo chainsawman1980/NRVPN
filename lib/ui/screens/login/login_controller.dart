@@ -5,6 +5,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nizvpn/easy_local/easy_localization.dart';
 
 import 'package:nizvpn/ui/screens/auth/auth_controller.dart';
@@ -17,6 +18,7 @@ import 'package:platform_device_id/platform_device_id.dart';
 import 'package:nizvpn/ui/screens/http/gcpay_api.dart';
 
 import '../../widgets/utils/validate_utils.dart';
+import '../auth/Loading_overlay.dart';
 
 
 
@@ -29,10 +31,10 @@ class LoginController extends AuthController {
   final formTrc20FieldKey = GlobalKey<FormFieldState>();
 
   FocusNode trc20FocusNode = FocusNode();
-  RxBool isButtonEnable = false.obs;      //按钮初始状态  是否可点击
+  RxBool isButtonEnable = true.obs;      //按钮初始状态  是否可点击
   RxInt count = 60.obs;                     //初始倒计时时间
   Timer? timer;
-  RxString buttonText = '60'.obs;   //初始文本
+  RxString buttonText = '发送验证码'.obs;   //初始文本
   RxString captaText = ''.obs;   //图形验证码
 
   LoginController(
@@ -56,9 +58,37 @@ class LoginController extends AuthController {
   }
 
   Future<void> buttonClickListen() async {
+    if(emailController.text.length < 0)
+    {
+      Fluttertoast.showToast(msg:"Phonenum or Email must be filled".trs());
+      return;
+    }
+    else if(!ValidateUtils().isEmail(emailController.text)&&!ValidateUtils().isChinaPhoneNumber(emailController.text))
+    {
+      Fluttertoast.showToast(msg:"Invalid mobile number or email".trs());
+      return;
+    }
     if (isButtonEnable.value) {
       //当按钮可点击时
       isButtonEnable.value = false; //按钮状态标记
+      try {
+        await sendLoginsmscode();
+        log('response signup');
+      } catch (err, _) {
+        printError(info: err.toString());
+        LoadingOverlay.hide();
+        Get.snackbar(
+          "error".tr,
+          err.toString(),
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red.withOpacity(.75),
+          colorText: Colors.white,
+          icon: const Icon(Icons.error,
+              color: Colors.white),
+          shouldIconPulse: true,
+          barBlur: 20,
+        );
+      } finally {}
       initTimer();
     }
   }
@@ -68,7 +98,6 @@ class LoginController extends AuthController {
     String? deviceId = await PlatformDeviceId.getDeviceId;
     captaText.value = deviceId!;
     log("login controller" + deviceId);
-    initTimer();
     ImageCache  imageCache = PaintingBinding.instance.imageCache;
     imageCache.clear();
     imageCache.clearLiveImages();
@@ -99,11 +128,25 @@ class LoginController extends AuthController {
     log('${emailController.text}, ${passwordController.text}');
     if (loginFormKey.currentState!.validate()) {
       try {
+        String strRegType = '';
+        String strEmail = '';
+        String strPhoneNum = '';
+        if(ValidateUtils().isEmail(emailController.text))
+        {
+          strRegType = '2';
+          strEmail = emailController.text;
+        }
+        else if(ValidateUtils().isChinaPhoneNumber(emailController.text))
+        {
+          strRegType = '1';
+          strPhoneNum = emailController.text;
+        }
+
         await signIn(<String, String>{
-          'nickname': emailController.text,
-          'loginPassword': passwordController.text,
-          'captcha': verifycodeController.text,
-          'deviceId': captaText.value,
+          'regType': strRegType,
+          'email': strEmail,
+          'phone': strPhoneNum,
+          'verifyCode': verifycodeController.text,
         });
       } catch (err, _) {
         // message = 'There is an issue with the app during request the data, '
@@ -166,5 +209,32 @@ class LoginController extends AuthController {
     }
     // Return null if the entered password is valid
     return null;
+  }
+
+
+  Future<void> sendLoginsmscode() async {
+    log('${emailController.text}, ${emailController.text}');
+
+    try {
+      String strRegType = '';
+      if(ValidateUtils().isEmail(emailController.text))
+        {
+          strRegType = '2';
+        }
+      else if(ValidateUtils().isChinaPhoneNumber(emailController.text))
+        {
+          strRegType = '1';
+        }
+      await senRegSmsCode(<String, String>{
+        'regType': strRegType,
+        'key': emailController.text,
+      });
+    } catch (err, _) {
+      // message = 'There is an issue with the app during request the data, '
+      //         'please contact admin for fixing the issues ' +
+
+      emailController.clear();
+      rethrow;
+    }
   }
 }

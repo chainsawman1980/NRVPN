@@ -75,7 +75,7 @@ class _GCPayApi implements GCPayApi {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResult<LoginEntity>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/user/senSmsCode',
+                .compose(_dio.options, '/api/login/getRegCaptcha',
                 queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResult<String>.fromJson(
@@ -95,7 +95,7 @@ class _GCPayApi implements GCPayApi {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResult<LoginEntity>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/user/senSmsCode',
+                .compose(_dio.options, '/api/login/getLoginCaptcha',
                 queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResult<String>.fromJson(
@@ -116,7 +116,7 @@ class _GCPayApi implements GCPayApi {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResult<LoginEntity>>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/user/login',
+                .compose(_dio.options, '/api/login/loginIn',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResult<LoginEntity>.fromJson(
@@ -137,7 +137,7 @@ class _GCPayApi implements GCPayApi {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResult<UserRegistrationRespDataEntity>> (
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/user/register',
+                .compose(_dio.options, '/api/login/reg',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResult<UserRegistrationRespDataEntity>.fromJson(

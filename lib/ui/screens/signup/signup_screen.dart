@@ -67,6 +67,9 @@ class SignupScreen extends GetView<SignupController> {
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
+                  Container(
+                    height: 20,
+                  ),
                   SizedBox(
                     // <-- Your width
                     height: 50, // <-- Your height
@@ -79,12 +82,12 @@ class SignupScreen extends GetView<SignupController> {
                         hintStyle: TextStyle(fontSize: 14),
                       ),
                       focusNode: controller.usernameFocusNode,
-                      // autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: controller.usernameValidator,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: controller.userNameValidator,
                     ),
                   ),
                   Container(
-                    height: 10,
+                    height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -150,70 +153,7 @@ class SignupScreen extends GetView<SignupController> {
                     ],
                   ),
                   Container(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    // <-- Your width
-                    height: 50, // <-- Your height
-                    child: TextFormField(
-                      key: controller.formPasswordFieldKey,
-                      controller: controller.passwordController,
-                      focusNode: controller.passwordFocusNode,
-                      decoration: InputDecoration(
-                        icon: Icon(Icons.security),
-                        hintText: 'login_password_hint'.trs(),
-                        hintStyle: TextStyle(fontSize: 14),
-                      ),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: controller.passwordValidator,
-                      obscureText: true,
-                    ),
-                  ),
-                  Container(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    // <-- Your width
-                    height: 50, // <-- Your height
-                    child: TextFormField(
-                      key: controller.formConfirmPasswordFieldKey,
-                      controller: controller.confirmPasswordController,
-                      focusNode: controller.confirmPasswordFocusNode,
-                      decoration: InputDecoration(
-                        icon: Icon(Icons.security),
-                        hintText: 'login_passwordagain_hint'.trs(),
-                        hintStyle: TextStyle(fontSize: 14),
-                      ),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: controller.confirmPasswordValidator,
-                      obscureText: true,
-                    ),
-                  ),
-                  Container(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    // <-- Your width
-                    height: 50, // <-- Your height
-                    child: TextFormField(
-                      key: controller.formInviteCodeFieldKey,
-                      controller: controller.payCodeController,
-                      focusNode: controller.inviteCodeFocusNode,
-                      decoration: InputDecoration(
-                        icon: Image.asset(
-                          "assets/images/Icon_invitecode.png",
-                          height: 24,
-                          fit: BoxFit.cover,
-                        ),
-                        hintText: 'pay_code_hint'.trs(),
-                        hintStyle: TextStyle(fontSize: 14),
-                      ),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      obscureText: false,
-                    ),
-                  ),
-                  Container(
-                    height: 20,
+                    height: 40,
                   ),
                   SizedBox(
                     width: 250, // <-- Your width
@@ -251,6 +191,7 @@ class SignupScreen extends GetView<SignupController> {
                           style: TextStyle(fontSize: 18),
                         )),
                   ),
+
                   Container(
                     height: 20,
                   ),

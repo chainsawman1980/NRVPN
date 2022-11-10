@@ -37,19 +37,19 @@ abstract class GCPayApi {
 
 
   // 玩家jwt登录
-  @POST("/api/user/login")
+  @POST("/api/login/loginIn")
   Future<BaseResult<LoginEntity>> login(@Body() Map<String, dynamic> map);
 
   //  发送手机验证码
-  @POST("/api/user/senSmsCode")
+  @POST("/api/login/getRegCaptcha")
   Future<BaseResult<String>> senRegSmsCode(@Body() Map<String, dynamic> map);
 
   //  发送手机验证码
-  @POST("/api/user/senSmsCode")
+  @POST("/api/login/getLoginCaptcha")
   Future<BaseResult<String>> senLoginSmsCode(@Body() Map<String, dynamic> map);
 
   //  玩家注册
-  @POST("/api/user/register")
+  @POST("/api/login/reg")
   Future<BaseResult<UserRegistrationRespDataEntity>> register(@Body() Map<String, dynamic> map);
 
 

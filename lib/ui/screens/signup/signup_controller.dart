@@ -4,12 +4,15 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:nizvpn/easy_local/easy_localization.dart';
 
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../widgets/constant/http_url.dart';
+import '../../widgets/utils/validate_utils.dart';
 import '../auth/Loading_overlay.dart';
 import '../auth/auth_api_service.dart';
 import '../auth/auth_controller.dart';
@@ -39,7 +42,7 @@ class SignupController extends AuthController {
   FocusNode confirmPasswordFocusNode = FocusNode();
   FocusNode inviteCodeFocusNode = FocusNode();
 
-  RxBool isButtonEnable = false.obs;      //按钮初始状态  是否可点击
+  RxBool isButtonEnable = true.obs;      //按钮初始状态  是否可点击
   RxInt count = 60.obs;                     //初始倒计时时间
   Timer? timer;
   RxString buttonText = '发送验证码'.obs;   //初始文本
@@ -66,6 +69,16 @@ class SignupController extends AuthController {
   }
 
   Future<void> buttonClickListen() async {
+    if(phoneNumController.text.length < 0)
+      {
+        Fluttertoast.showToast(msg:"Phonenum or Email must be filled".trs());
+        return;
+      }
+    else if(!ValidateUtils().isEmail(phoneNumController.text)&&!ValidateUtils().isChinaPhoneNumber(phoneNumController.text))
+      {
+        Fluttertoast.showToast(msg:"Invalid mobile number or email".trs());
+          return;
+      }
     if (isButtonEnable.value) {
       //当按钮可点击时
       isButtonEnable.value = false; //按钮状态标记
@@ -96,7 +109,6 @@ class SignupController extends AuthController {
     super.onInit();
     _addListener();
     // textFieldFocusNode.hasFocus = false;
-    initTimer();
     String? deviceId = await PlatformDeviceId.getDeviceId;
     log("signup controller" + deviceId!);
     captaText.value = deviceId;
@@ -153,19 +165,6 @@ class SignupController extends AuthController {
     super.onClose();
   }
 
-  String? usernameValidator(String? value) {
-    // if(fieldLostFocus == usernameController.hashCode)
-    log('usernameValidator-----');
-    if (value == null || value.trim().isEmpty) {
-      return 'Please this field must be filled'.tr;
-    }
-    if (value.trim().length < 4) {
-      return 'Username must be at least 4 characters in length'.tr;
-    }
-    // Return null if the entered username is valid
-    return null;
-  }
-
   String? passwordValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'Please this field must be filled'.tr;
@@ -198,25 +197,46 @@ class SignupController extends AuthController {
     return null;
   }
 
+  String? userNameValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Please this field must be filled'.trs();
+    }
+    if (!ValidateUtils().isEmail(value)&&!ValidateUtils().isChinaPhoneNumber(value)) {
+      return 'Invalid mobile number or email'.trs();
+    }
+    // Return null if the entered password is valid
+    return null;
+  }
 
   Future<void> signup() async {
     log('${emailController.text}, ${passwordController.text}');
     if (signupFormKey.currentState!.validate()) {
       try {
 
+        String strRegType = '';
+        String strEmail = '';
+        String strPhoneNum = '';
+        if(ValidateUtils().isEmail(emailController.text))
+        {
+          strRegType = '2';
+          strEmail = phoneNumController.text;
+        }
+        else if(ValidateUtils().isChinaPhoneNumber(emailController.text))
+        {
+          strRegType = '1';
+          strPhoneNum = phoneNumController.text;
+        }
+
         await signUp(<String, String>{
-          'nickname': phoneNumController.text,
-          'captcha': phoneVerifyCodeController.text,
-          'loginPassword': passwordController.text,
-          'payPassword': payCodeController.text,
-          'deviceId': captaText.value,
+          'regType': strRegType,
+          'email': strEmail,
+          'phone': strPhoneNum,
+          'verifyCode': phoneVerifyCodeController.text,
         });
       } catch (err, _) {
         // message = 'There is an issue with the app during request the data, '
         //         'please contact admin for fixing the issues ' +
 
-        passwordController.clear();
-        confirmPasswordController.clear();
         rethrow;
       }
     } else {
@@ -228,9 +248,17 @@ class SignupController extends AuthController {
     log('${phoneNumController.text}, ${phoneNumController.text}');
 
     try {
-
+      String strRegType = '';
+      if(ValidateUtils().isEmail(emailController.text))
+      {
+        strRegType = '2';
+      }
+      else if(ValidateUtils().isChinaPhoneNumber(emailController.text))
+      {
+        strRegType = '1';
+      }
       await senRegSmsCode(<String, String>{
-        'regType': phoneNumController.text,
+        'regType': strRegType,
         'key': phoneNumController.text,
       });
     } catch (err, _) {

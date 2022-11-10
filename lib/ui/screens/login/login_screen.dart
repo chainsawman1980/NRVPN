@@ -105,7 +105,6 @@ class LoginScreen extends BaseStatefulWidget<LoginController> {
     final foregroundColor = themeData.colorScheme.surface;
     final primaryTextTheme = themeData.textTheme;
     return SafeArea(
-        child: Center(
       child: SingleChildScrollView(
         child: Container(
             padding: const EdgeInsets.only(left: 16.0, right: 16),
@@ -114,6 +113,9 @@ class LoginScreen extends BaseStatefulWidget<LoginController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Container(
+                    height: 40,
+                  ),
                   Container(
                     height: 100,
                     width: 100,
@@ -131,7 +133,7 @@ class LoginScreen extends BaseStatefulWidget<LoginController> {
                     ),
                   ),
                   Container(
-                    height: 10,
+                    height: 40,
                   ),
                   SizedBox(
                     // <-- Your width
@@ -150,21 +152,6 @@ class LoginScreen extends BaseStatefulWidget<LoginController> {
                   ),
                   Container(
                     height: 10,
-                  ),
-                  SizedBox(
-                    // <-- Your width
-                    height: 50, // <-- Your height
-                    child: TextFormField(
-                      // key: const Key('password'),
-                      controller: controller.passwordController,
-                      decoration: InputDecoration(
-                        icon: FaIcon(FontAwesomeIcons.lock),
-                        hintText: 'login_password_hint'.trs(),
-                        hintStyle: TextStyle(fontSize: 14),
-                      ),
-                      validator: controller.passwordValidator,
-                      obscureText: true,
-                    ),
                   ),
                   Container(
                     height: 10,
@@ -338,7 +325,7 @@ class LoginScreen extends BaseStatefulWidget<LoginController> {
               ),
             )),
       ),
-    ));
+    );
   }
 
   @override
