@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:nizvpn/easy_local/easy_localization.dart';
 
 import 'package:uuid/uuid.dart';
 
@@ -54,7 +55,7 @@ class LoginScreen extends GetView<LoginController> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Image.asset('assets/images/language_english.png'),
-                        Text('English'.tr, textScaleFactor: 2),
+                        Text('English'.trs(), textScaleFactor: 2),
                       ],
                     ),
                     onTap: () {
@@ -73,7 +74,7 @@ class LoginScreen extends GetView<LoginController> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Image.asset('assets/images/language_chinese.png'),
-                        Text('Chinese'.tr, textScaleFactor: 2),
+                        Text('Chinese'.trs(), textScaleFactor: 2),
                       ],
                     ),
                     onTap: () {
@@ -101,20 +102,20 @@ class LoginScreen extends GetView<LoginController> {
     final primaryTextTheme = themeData.textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: Text('login'.tr),
-        leading: IconButton(
-          color: colorScheme.primary,
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () async {
-            // onBackPressed();
-            var canPop = navigator?.canPop();
-            if (canPop != null && canPop) {
-              Get.back();
-            } else {
-              SystemNavigator.pop();
-            }
-          },
-        ),
+        title: Text('login'.trs()),
+        // leading: IconButton(
+        //   color: colorScheme.primary,
+        //   icon: const Icon(Icons.arrow_back_ios),
+        //   onPressed: () async {
+        //     // onBackPressed();
+        //     var canPop = navigator?.canPop();
+        //     if (canPop != null && canPop) {
+        //       Get.back();
+        //     } else {
+        //       SystemNavigator.pop();
+        //     }
+        //   },
+        // ),
         actions: [
           IconButton(
             color: colorScheme.onPrimary,
@@ -145,7 +146,7 @@ class LoginScreen extends GetView<LoginController> {
                   ),
                   Container(
                     child: Text(
-                      'cp_gcpay'.tr,
+                      'cp_gcpay'.trs(),
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
@@ -160,7 +161,7 @@ class LoginScreen extends GetView<LoginController> {
                       controller: controller.emailController,
                       decoration: InputDecoration(
                         icon: FaIcon(FontAwesomeIcons.user),
-                        hintText: 'login_phonenum_hint'.tr,
+                        hintText: 'login_phonenum_hint'.trs(),
                         hintStyle: TextStyle(fontSize: 14),
                       ),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -178,7 +179,7 @@ class LoginScreen extends GetView<LoginController> {
                       controller: controller.passwordController,
                       decoration: InputDecoration(
                         icon: FaIcon(FontAwesomeIcons.lock),
-                        hintText: 'login_password_hint'.tr,
+                        hintText: 'login_password_hint'.trs(),
                         hintStyle: TextStyle(fontSize: 14),
                       ),
                       validator: controller.validator,
@@ -238,7 +239,7 @@ class LoginScreen extends GetView<LoginController> {
                                     ),
                                   )),
                                 ),
-                                hintText: 'login_verifycode_hint'.tr,
+                                hintText: 'login_verifycode_hint'.trs(),
                                 hintStyle: TextStyle(fontSize: 14),
                               ),
                               autovalidateMode:
@@ -264,7 +265,7 @@ class LoginScreen extends GetView<LoginController> {
                         onPressed: () async {
                           if (controller.loginFormKey.currentState!
                               .validate()) {
-                            LoadingOverlay.show(message: 'loginmessage'.tr);
+                            LoadingOverlay.show(message: 'loginmessage'.trs());
                             try {
                               await controller.login();
                               Get.back(closeOverlays: true);
@@ -273,7 +274,7 @@ class LoginScreen extends GetView<LoginController> {
                               printError(info: err.toString());
                               LoadingOverlay.hide();
                               Get.snackbar(
-                                "error".tr,
+                                "error".trs(),
                                 err.toString(),
                                 snackPosition: SnackPosition.TOP,
                                 backgroundColor: Colors.red.withOpacity(.75),
@@ -289,7 +290,7 @@ class LoginScreen extends GetView<LoginController> {
                           }
                         },
                         child: Text(
-                          'login'.tr,
+                          'login'.trs(),
                           style: TextStyle(fontSize: 18),
                         )),
                   ),
@@ -315,17 +316,17 @@ class LoginScreen extends GetView<LoginController> {
                             }
                             Get.to(WebViewPage(
                               strUrl: strCSUrl,
-                              strTitle: 'customerService'.tr,
+                              strTitle: 'customerService'.trs(),
                               blNavigation: false,
                             ));
                           },
                           child: RichText(
                             text: TextSpan(children: [
                               TextSpan(
-                                  text: 'forgetpassword'.tr,
+                                  text: 'forgetpassword'.trs(),
                                   style: primaryTextTheme.labelLarge),
                               TextSpan(
-                                  text: 'contactcustomer'.tr,
+                                  text: 'contactcustomer'.trs(),
                                   style: TextStyle(color: colorScheme.primary)),
                             ]),
                           )),
@@ -339,10 +340,10 @@ class LoginScreen extends GetView<LoginController> {
                           child: RichText(
                             text: TextSpan(children: [
                               TextSpan(
-                                  text: 'noaccount'.tr,
+                                  text: 'noaccount'.trs(),
                                   style: primaryTextTheme.labelLarge),
                               TextSpan(
-                                  text: 'createaccount'.tr,
+                                  text: 'createaccount'.trs(),
                                   style: TextStyle(color: colorScheme.primary)),
                             ]),
                           )),

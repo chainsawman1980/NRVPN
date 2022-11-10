@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:nizvpn/easy_local/easy_localization.dart';
 import 'package:nizvpn/ui/screens/signup/signup_controller.dart';
 import 'package:uuid/uuid.dart';
 
@@ -26,7 +27,7 @@ class SignupScreen extends GetView<SignupController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('signup'.tr),
+        title: Text('signup'.trs()),
         leading: IconButton(
           color: colorScheme.onPrimary,
           icon: const Icon(Icons.arrow_back_ios),
@@ -61,7 +62,7 @@ class SignupScreen extends GetView<SignupController> {
                   ),
                   Container(
                     child: Text(
-                      'cp_gcpay'.tr,
+                      'cp_gcpay'.trs(),
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
@@ -73,7 +74,7 @@ class SignupScreen extends GetView<SignupController> {
                       controller: controller.phoneNumController,
                       decoration: InputDecoration(
                         icon: Icon(Icons.phone_android),
-                        hintText: 'login_phonenum_hint'.tr,
+                        hintText: 'login_phonenum_hint'.trs(),
                         hintStyle: TextStyle(fontSize: 14),
                       ),
                       focusNode: controller.usernameFocusNode,
@@ -134,7 +135,7 @@ class SignupScreen extends GetView<SignupController> {
                                     ),
                                   )),
                                 ),
-                                hintText: 'login_verifycode_hint'.tr,
+                                hintText: 'login_verifycode_hint'.trs(),
                                 hintStyle: TextStyle(fontSize: 14),
                               ),
                               autovalidateMode:
@@ -159,7 +160,7 @@ class SignupScreen extends GetView<SignupController> {
                       focusNode: controller.passwordFocusNode,
                       decoration: InputDecoration(
                         icon: Icon(Icons.security),
-                        hintText: 'login_password_hint'.tr,
+                        hintText: 'login_password_hint'.trs(),
                         hintStyle: TextStyle(fontSize: 14),
                       ),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -179,7 +180,7 @@ class SignupScreen extends GetView<SignupController> {
                       focusNode: controller.confirmPasswordFocusNode,
                       decoration: InputDecoration(
                         icon: Icon(Icons.security),
-                        hintText: 'login_passwordagain_hint'.tr,
+                        hintText: 'login_passwordagain_hint'.trs(),
                         hintStyle: TextStyle(fontSize: 14),
                       ),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -203,7 +204,7 @@ class SignupScreen extends GetView<SignupController> {
                           height: 24,
                           fit: BoxFit.cover,
                         ),
-                        hintText: 'pay_code_hint'.tr,
+                        hintText: 'pay_code_hint'.trs(),
                         hintStyle: TextStyle(fontSize: 14),
                       ),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -220,7 +221,7 @@ class SignupScreen extends GetView<SignupController> {
                         onPressed: () async {
                           if (controller.signupFormKey.currentState!
                               .validate()) {
-                            LoadingOverlay.show(message: 'Loading...'.tr);
+                            LoadingOverlay.show(message: 'Loading...'.trs());
                             try {
                               await controller.signup();
                               controller.signupFormKey.currentState!.save();
@@ -231,7 +232,7 @@ class SignupScreen extends GetView<SignupController> {
                               printError(info: err.toString());
                               LoadingOverlay.hide();
                               Get.snackbar(
-                                "error".tr,
+                                "error".trs(),
                                 err.toString(),
                                 snackPosition: SnackPosition.TOP,
                                 backgroundColor: Colors.red.withOpacity(.75),
@@ -245,7 +246,7 @@ class SignupScreen extends GetView<SignupController> {
                           }
                         },
                         child: Text(
-                          'signup'.tr,
+                          'signup'.trs(),
                           style: TextStyle(fontSize: 18),
                         )),
                   ),
@@ -259,9 +260,9 @@ class SignupScreen extends GetView<SignupController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('haveaccount'.tr),
+                        Text('haveaccount'.trs()),
                         Text(
-                          'loginnow'.tr,
+                          'loginnow'.trs(),
                           style: TextStyle(color: Colors.blue),
                         )
                       ],

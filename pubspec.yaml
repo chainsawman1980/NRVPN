@@ -76,6 +76,7 @@ flutter:
   assets:
     - "assets/"
     - "assets/icons/"
+    - "assets/images/"
     - "assets/images/banner/"
     - "assets/images/loading/"
     - "assets/icons/flags/"

@@ -198,6 +198,9 @@ class MainScreen extends BaseStatefulWidget<MainController> {
       ),
     );
   }
+
+  ///是否展示回退按钮
+  bool showBackButton() => false;
 }
 
 class MainController extends BaseController {

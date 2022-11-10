@@ -49,6 +49,7 @@ Future<void> initializeApp() async {
 
   await GetStorage.init();
 
+  Get.put(MainController());
   Get.put(AuthController(Get.put(AuthApiService()), Get.put(CacheService()), Get.put(GCPayApi())),
       permanent: true);
 
