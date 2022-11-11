@@ -283,7 +283,7 @@ class _ServersWidgetState extends State<ServersWidget> with KeepAliveParentDataM
     }
     GCPayApi vpnapi = Get.find<GCPayApi>();
 
-    var resp = await (widget.type == 0 ? vpnapi.allFreeServer(page: showAllCountries ? null : page) : VpnServerHttp(context).allProServer(page: showAllCountries ? null : page));
+    var resp = await (widget.type == 0 ? vpnapi.allFreeServer(page: showAllCountries ? null : page) : vpnapi.allProServer(page: showAllCountries ? null : page));
     refreshController.refreshCompleted();
     refreshController.loadComplete();
 

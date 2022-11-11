@@ -208,4 +208,43 @@ class _GCPayApi implements GCPayApi {
     return value;
   }
 
+  @override
+  Future<List<VpnServer>?> allProServer({int? page}) async {
+    var resp;
+    if (page == null) {
+      resp = await allProServerAPI(<String, dynamic>{
+        'page': 0,
+      });
+    } else {
+      resp = await allProServerAPI(<String, dynamic>{
+        'page': page,
+      });
+    }
+
+    return resp.data;
+  }
+
+  @override
+  Future<BaseResult<List<VpnServer>>> allProServerAPI(map) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = map;
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _headers["Authorization"] = loadToken()!;
+
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResult<List<VpnServer>>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/vpn/allservers/pro',
+                queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResult<List<VpnServer>>.fromJson(
+      _result.data!,
+          (json) => (json as List<dynamic>)
+          .map<VpnServer>(
+              (i) => VpnServer.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
 }
