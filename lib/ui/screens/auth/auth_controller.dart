@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:get/get.dart';
+import 'package:nizvpn/easy_local/easy_localization.dart';
 import 'package:nizvpn/ui/model/Login_entity.dart';
 import 'package:nizvpn/ui/model/token_model.dart';
 import 'package:nizvpn/ui/widgets/controller/base_controller.dart';
@@ -37,15 +38,16 @@ class AuthController extends BaseController {
         // tokenData = TokenModel(
         //   accessToken: response.data.toString(),
         // );
-        LoginEntity? loginentity = response.data;
-        loginEntity = Rx<LoginEntity>(loginentity!);
-        rxUserName.value = loginentity.nickname!;
-        _cacheServices.login(loginentity.token.toString());
-        _cacheServices.saveUserInfo(loginentity);
-        _cacheServices.saveUserName(loginentity.nickname.toString());
-        _cacheServices.saveUserId(loginentity.userId.toString());
-        _cacheServices.saveUsdtBonus(loginentity.gcBalance!);
-        _cacheServices.saveUserTrc20Address(loginentity.walletAddress!);
+        showToast(response.msg,
+            gravity: ToastGravity.CENTER);
+        TokenModel? loginentity = response.data;
+        //loginEntity = Rx<LoginEntity>(loginentity!);
+        //rxUserName.value = loginentity.nickname!;
+        _cacheServices.login(loginentity?.token);
+        //_cacheServices.saveUserName(loginentity.nickname.toString());
+        //_cacheServices.saveUserId(loginentity.userId.toString());
+        //_cacheServices.saveUsdtBonus(loginentity.gcBalance!);
+        //_cacheServices.saveUserTrc20Address(loginentity.walletAddress!);
       } else {
         var message = response.msg;
         log('message---{message}');
@@ -62,7 +64,7 @@ class AuthController extends BaseController {
   Future<bool> signUp(Map<String, dynamic> data) async {
     bool blsignup = false;
     String errorM =
-        'An error occurred while registering, please contact the administrator.';
+        'An error occurred while VerifyCode, please contact the administrator'.trs();
     try {
       var response = await api.register(data);
       errorM = response.msg!;
@@ -71,6 +73,8 @@ class AuthController extends BaseController {
       if (response.code == 1000) {
         log('enter signup');
         blsignup = true;
+        showToast(response.msg,
+            gravity: ToastGravity.CENTER);
       } else {
         // var message = response.body['error_description'];
 
@@ -87,7 +91,7 @@ class AuthController extends BaseController {
   Future<bool> sendRegSmsCode(Map<String, dynamic> data) async {
     bool blRegSmsCode = false;
     String errorM =
-        'An error occurred while senSmsCode, please contact the administrator.';
+        'An error occurred while VerifyCode, please contact the administrator'.trs();
     try {
       var response = await api.senRegSmsCode(data);
       errorM = response.msg!;
@@ -120,13 +124,13 @@ class AuthController extends BaseController {
   Future<bool> sendLoginSmsCode(Map<String, dynamic> data) async {
     bool blLoginSmsCode = false;
     String errorM =
-        'An error occurred while senSmsCode, please contact the administrator.';
+        'An error occurred while VerifyCode, please contact the administrator'.trs();
     try {
       var response = await api.senLoginSmsCode(data);
       errorM = response.msg!;
 
       log('is senSmsCode : ${response.toString()}');
-      if (response.code == 200) {
+      if (response.code == 1000) {
         log('senSmsCodesuccess');
         blLoginSmsCode = true;
         showToast(response.msg,

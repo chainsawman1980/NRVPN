@@ -237,8 +237,7 @@ class LoginController extends AuthController {
     } catch (err, _) {
       // message = 'There is an issue with the app during request the data, '
       //         'please contact admin for fixing the issues ' +
-
-      emailController.clear();
+      verifycodeController.clear();
       rethrow;
     }
     return blLoginSmsCode;

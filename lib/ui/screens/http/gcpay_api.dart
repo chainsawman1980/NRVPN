@@ -8,6 +8,7 @@ import 'package:retrofit/http.dart';
 
 import '../../model/Login_entity.dart';
 import '../../model/UserRegistration_RespData_entity.dart';
+import '../../model/token_model.dart';
 import '../../widgets/constant/http_url.dart';
 import '../../widgets/http/result/base_result.dart';
 import 'package:nizvpn/ui/screens/auth/cache_service.dart';
@@ -38,7 +39,7 @@ abstract class GCPayApi {
 
   // 玩家jwt登录
   @POST("/api/login/loginIn")
-  Future<BaseResult<LoginEntity>> login(@Body() Map<String, dynamic> map);
+  Future<BaseResult<TokenModel>> login(@Body() Map<String, dynamic> map);
 
   //  发送手机验证码
   @POST("/api/login/getRegCaptcha")

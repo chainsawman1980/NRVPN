@@ -142,8 +142,8 @@ class LoginScreen extends BaseStatefulWidget<LoginController> {
                       key: controller.formLoginEmailFieldKey,
                       controller: controller.emailController,
                       decoration: InputDecoration(
-                        icon: FaIcon(FontAwesomeIcons.user),
-                        hintText: 'login_phonenum_hint'.trs(),
+                        icon: Icon(Icons.email_outlined),
+                        hintText: 'login_email_hint'.trs(),
                         hintStyle: TextStyle(fontSize: 14),
                       ),
                       autovalidateMode: AutovalidateMode.onUserInteraction,

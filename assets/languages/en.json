@@ -150,5 +150,6 @@
     "Invalid mobile number" : "Invalid phonenum",
     "Invalid email" : "Invalid email",
     "Password must be at least 6 characters in length" : "Password must be at least 6 characters in length",
-    "VerifyCode must be at least 4 characters in length" : "VerifyCode must be at least 4 characters in length"
+    "VerifyCode must be at least 4 characters in length" : "VerifyCode must be at least 4 characters in length",
+    "An error occurred while VerifyCode, please contact the administrator" : "An error occurred while VerifyCode, please contact the administrator"
 }

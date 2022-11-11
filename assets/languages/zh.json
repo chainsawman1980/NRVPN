@@ -153,5 +153,7 @@
     "Invalid mobile number" : "无效的手机号",
     "Invalid email" : "无效的邮箱",
     "Password must be at least 6 characters in length" : "密码必须至少6位",
-    "VerifyCode must be at least 4 characters in length" : "验证码必须至少4位"
+    "VerifyCode must be at least 4 characters in length" : "验证码必须至少4位",
+    "An error occurred while VerifyCode, please contact the administrator" : "获取验证码发生错误，请联系管理员"
+
 }

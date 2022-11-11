@@ -3,7 +3,7 @@
 import '../widgets/mixins/helper_mixin.dart';
 
 class TokenModel with HelperMixin {
-  String accessToken;
+  String token;
   // int expiresIn;
   // String tokenType;
   // String scope;
@@ -12,7 +12,7 @@ class TokenModel with HelperMixin {
   // int type;
 
   TokenModel(
-      {required this.accessToken,
+      {required this.token,
       // required this.expiresIn,
       // required this.tokenType,
       // required this.scope,
@@ -24,7 +24,7 @@ class TokenModel with HelperMixin {
 
   factory TokenModel.fromJson(Map<String, dynamic> json) {
     return TokenModel(
-        accessToken: json['access_token'],
+      token: json['token'],
         // expiresIn: int.parse(json['expires_in']),
         // tokenType: json['token_type'],
         // type: json['type'],
@@ -38,7 +38,7 @@ class TokenModel with HelperMixin {
 
   Map<String, dynamic> toJson() {
     return {
-      'access_token': accessToken,
+      'token': token,
       // 'expires_in': expiresIn.toString(),
       // 'token_type': tokenType,
       // 'type': type,
@@ -49,7 +49,7 @@ class TokenModel with HelperMixin {
   }
 
   TokenModel copyWith(
-      {String? accessToken,
+      {String? token,
       int? expiresIn,
       String? tokenType,
         int? type,
@@ -57,7 +57,7 @@ class TokenModel with HelperMixin {
       String? refreshToken,
       int? timestamp}) {
     return TokenModel(
-      accessToken: accessToken ?? this.accessToken,
+      token: token ?? this.token,
       // expiresIn: expiresIn ?? this.expiresIn,
       // tokenType: tokenType ?? this.tokenType,
       // type: type ?? this.type,
@@ -68,7 +68,7 @@ class TokenModel with HelperMixin {
   }
 
   void printAttributes() {
-    print("accessToken: ${this.accessToken}\n");
+    print("token: ${this.token}\n");
     // print("expiresIn: ${this.expiresIn}\n");
     // print("tokenType: ${this.tokenType}\n");
     // print("scope: ${this.scope}\n");

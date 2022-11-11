@@ -36,10 +36,10 @@ class CacheService extends GetxService with HelperMixin {
     removeUserTrc20Address();
   }
 
-  void login(String token) async {
+  void login(String? token) async {
     this.token = token;
     //Token is cached
-    await saveToken(token);
+    await saveToken(token!);
     // await saveBonus(bonus);
     // await saveUserName(userName);
   }
