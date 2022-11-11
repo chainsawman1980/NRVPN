@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/models/bannermessage.dart';
 import '../../core/provider/vpnProvider.dart';
+import '../screens/http/gcpay_api.dart';
 import '../widgets/base_stateful_widget.dart';
 import '../widgets/controller/base_controller.dart';
 import '../widgets/list_item.dart';
@@ -95,7 +96,6 @@ class NewsMessagePage extends BaseStatefulWidget<NewsMessageController> {
             title: bannermessage.title!,
             subtitle: bannermessage.content!,
             divider: true,
-              trailing:Text(bannermessage.created_at!),
             onTap: () {
 
             },
@@ -145,7 +145,12 @@ class NewsMessageController extends BaseController {
 
   Future<void> getBanner()
   async {
-    rxBanner.value = await VpnProvider.getBanner(Get.context!);
+    GCPayApi api = Get.find<GCPayApi>();
+    var bannerResult = await api.getBanner(<String, dynamic>{
+      'type': 2,
+    });
+    rxBanner.value = bannerResult.data!;
+
     if (rxBanner.value.length > 0) {
       //return json.decode(response.body);
       change(rxBanner.value, status: RxStatus.success());
