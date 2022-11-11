@@ -28,7 +28,7 @@ class AuthController extends BaseController {
       //var response = await _authenticationService.signIn(email,trc20, password);
       log('is logged in : ${response.code}：${response.toString()}');
 
-      if (response.code == 200) {
+      if (response.code == 1000) {
         log('${response.data}');
         // final decoded = jsonDecode(responsense.data.toString()) as List<dynamic>;
         // Map<String, dynamic> tokenJson = decoded[0];
@@ -67,7 +67,7 @@ class AuthController extends BaseController {
       errorM = response.msg!;
 
       log('is signup : ${response.toString()}');
-      if (response.code == 200) {
+      if (response.code == 1000) {
         log('enter signup');
         Get.back();
       } else {
@@ -91,8 +91,7 @@ class AuthController extends BaseController {
       var response = await api.senRegSmsCode(data);
       errorM = response.msg!;
 
-      log('is senSmsCode : ${response.toString()}');
-      if (response.code == 200) {
+      if (response.code == 1000) {
         log('senSmsCodesuccess');
         showToast("send_sms_success".tr,
             gravity: ToastGravity.CENTER);

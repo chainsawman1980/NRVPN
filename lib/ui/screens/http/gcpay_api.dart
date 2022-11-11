@@ -50,7 +50,7 @@ abstract class GCPayApi {
 
   //  玩家注册
   @POST("/api/login/reg")
-  Future<BaseResult<UserRegistrationRespDataEntity>> register(@Body() Map<String, dynamic> map);
+  Future<BaseResult<String>> register(@Body() Map<String, dynamic> map);
 
 
 

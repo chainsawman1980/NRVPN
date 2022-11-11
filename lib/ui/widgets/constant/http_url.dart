@@ -5,13 +5,13 @@ import 'package:uuid/uuid.dart';
 ///
 class HttpUrl {
   ///测试环境URL
-  static const String BASE_URL = "http://admin.ssdvpn.com/api/vpn/";
+  static const String BASE_URL = "http://api.ssdvpn.com/api/vpn/";
 
   static const String BAES_TZYK_URL = "https://test-tzyk.get88.cn/";
 
   static const String BASE_GATEWAY_URL = "https://test-gateway.get88.cn/";
 
-  static const String BASE_GCPAY_URL = "http://admin.ssdvpn.com/";
+  static const String BASE_GCPAY_URL = "http://api.ssdvpn.com/";
 
   static const String clientId = 'CLIENT_ID';
   static const String clientSecret = 'CLIENT_SECRET';

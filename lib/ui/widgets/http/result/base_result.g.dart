@@ -12,6 +12,7 @@ BaseResult<T> _$BaseResultFromJson<T>(
 ) =>
     BaseResult<T>(
       code: json['code'] as int?,
+      success: json['success'] as bool?,
       msg: json['msg'] as String?,
       data: _$nullableGenericFromJson(json['data'], fromJsonT),
     );
@@ -22,6 +23,7 @@ Map<String, dynamic> _$BaseResultToJson<T>(
 ) =>
     <String, dynamic>{
       'code': instance.code,
+      'status': instance.success,
       'msg': instance.msg,
       'data': _$nullableGenericToJson(instance.data, toJsonT),
     };

@@ -249,11 +249,11 @@ class SignupController extends AuthController {
 
     try {
       String strRegType = '';
-      if(ValidateUtils().isEmail(emailController.text))
+      if(ValidateUtils().isEmail(phoneNumController.text))
       {
         strRegType = '2';
       }
-      else if(ValidateUtils().isChinaPhoneNumber(emailController.text))
+      else if(ValidateUtils().isChinaPhoneNumber(phoneNumController.text))
       {
         strRegType = '1';
       }

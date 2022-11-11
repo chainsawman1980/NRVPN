@@ -1,7 +1,7 @@
 import 'dart:io';
 
 //if you got problems with your endpoint, read FAQ in the docs
-const String endpoint = "http://admin.ssdvpn.com"; //18.166.225.37
+const String endpoint = "http://api.ssdvpn.com"; //18.166.225.37
 
 const String appname = "North";
 

@@ -14,8 +14,9 @@ class BaseResult<T> {
   String? msg;
   @JsonKey(name: "data")
   T? data;
-
-  BaseResult({this.code, this.msg, this.data});
+  @JsonKey(name: "success")
+  bool? success;
+  BaseResult({this.code, this.msg, this.success, this.data});
 
   factory BaseResult.fromJson(
       Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>

@@ -72,10 +72,12 @@ class _GCPayApi implements GCPayApi {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     queryParameters.addAll(map);
+    String strRegType = queryParameters["regType"];
+    String strEmail = queryParameters["key"];
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResult<LoginEntity>>(
+        _setStreamType<BaseResult<String>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/login/getRegCaptcha',
+                .compose(_dio.options, '/api/login/getRegCaptcha/'+strRegType+'/'+strEmail,
                 queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResult<String>.fromJson(
@@ -128,21 +130,21 @@ class _GCPayApi implements GCPayApi {
 
 
   @override
-  Future<BaseResult<UserRegistrationRespDataEntity>> register(map) async {
+  Future<BaseResult<String>> register(map) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(map);
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResult<UserRegistrationRespDataEntity>> (
+        _setStreamType<BaseResult<String>> (
             Options(method: 'POST', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/api/login/reg',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResult<UserRegistrationRespDataEntity>.fromJson(
+    final value = BaseResult<String>.fromJson(
       _result.data!,
-          (json) => UserRegistrationRespDataEntity.fromJson(json as Map<String, dynamic>),
+          (json) => json as String,
     );
     return value;
   }
