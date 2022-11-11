@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:nizvpn/easy_local/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -17,6 +19,7 @@ import '../../core/utils/NizVPN.dart';
 import '../components/customCard.dart';
 import '../components/customDivider.dart';
 import '../components/customImage.dart';
+import 'http/gcpay_api.dart';
 import 'subscriptionDetailScreen.dart';
 
 class SelectVpnScreen extends StatefulWidget {
@@ -278,7 +281,9 @@ class _ServersWidgetState extends State<ServersWidget> with KeepAliveParentDataM
     } else {
       page++;
     }
-    var resp = await (widget.type == 0 ? VpnServerHttp(context).allFreeServer(page: showAllCountries ? null : page) : VpnServerHttp(context).allProServer(page: showAllCountries ? null : page));
+    GCPayApi vpnapi = Get.find<GCPayApi>();
+
+    var resp = await (widget.type == 0 ? vpnapi.allFreeServer(page: showAllCountries ? null : page) : VpnServerHttp(context).allProServer(page: showAllCountries ? null : page));
     refreshController.refreshCompleted();
     refreshController.loadComplete();
 

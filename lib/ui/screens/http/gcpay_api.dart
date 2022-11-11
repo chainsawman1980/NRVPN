@@ -7,6 +7,7 @@ import 'package:retrofit/http.dart';
 
 
 import '../../../core/models/bannermessage.dart';
+import '../../../core/models/vpnServer.dart';
 import '../../model/Login_entity.dart';
 import '../../model/UserRegistration_RespData_entity.dart';
 import '../../model/token_model.dart';
@@ -54,6 +55,10 @@ abstract class GCPayApi {
   @POST("/api/login/reg")
   Future<BaseResult<String>> register(@Body() Map<String, dynamic> map);
 
+  Future<List<VpnServer>?> allFreeServer({int? page});
+
+  @GET("/api/vpn/allservers/free")
+  Future<BaseResult<List<VpnServer>>> allFreeServerAPI(@Body() Map<String, dynamic> map);
 
 
 }

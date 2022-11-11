@@ -24,6 +24,19 @@ class _GCPayApi implements GCPayApi {
     return jsonToken;
   }
 
+  RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
+    if (T != dynamic &&
+        !(requestOptions.responseType == ResponseType.bytes ||
+            requestOptions.responseType == ResponseType.stream)) {
+      if (T == String) {
+        requestOptions.responseType = ResponseType.plain;
+      } else {
+        requestOptions.responseType = ResponseType.json;
+      }
+    }
+    return requestOptions;
+  }
+
   @override
   Future<BaseResult<List<BannerMessages>>> getBanner(map) async {
     const _extra = <String, dynamic>{};
@@ -155,16 +168,44 @@ class _GCPayApi implements GCPayApi {
     return value;
   }
 
-  RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
-    if (T != dynamic &&
-        !(requestOptions.responseType == ResponseType.bytes ||
-            requestOptions.responseType == ResponseType.stream)) {
-      if (T == String) {
-        requestOptions.responseType = ResponseType.plain;
-      } else {
-        requestOptions.responseType = ResponseType.json;
-      }
+  @override
+  Future<List<VpnServer>?> allFreeServer({int? page}) async {
+    var resp;
+    if (page == null) {
+      resp = await allFreeServerAPI(<String, dynamic>{
+        'page': 0,
+      });
+    } else {
+      resp = await allFreeServerAPI(<String, dynamic>{
+        'page': page,
+      });
     }
-    return requestOptions;
+
+    return resp.data;
   }
+
+  @override
+  Future<BaseResult<List<VpnServer>>> allFreeServerAPI(map) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = map;
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _headers["Authorization"] = loadToken()!;
+
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResult<List<VpnServer>>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/vpn/allservers/free',
+                queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResult<List<VpnServer>>.fromJson(
+      _result.data!,
+          (json) => (json as List<dynamic>)
+          .map<VpnServer>(
+              (i) => VpnServer.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
+
 }
