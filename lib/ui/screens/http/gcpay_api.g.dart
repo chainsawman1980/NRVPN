@@ -24,22 +24,26 @@ class _GCPayApi implements GCPayApi {
     return jsonToken;
   }
 
-
   @override
-  Future<BaseResult<String>> getBanner() async {
+  Future<BaseResult<List<BannerMessages>>> getBanner(map) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = map;
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
+    _headers["Authorization"] = loadToken()!;
+
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResult<String>>(
+        _setStreamType<BaseResult<List<BannerMessages>>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/getBanner',
+                .compose(_dio.options, '/api/siteMessage/getList',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResult<String>.fromJson(
+    final value = BaseResult<List<BannerMessages>>.fromJson(
       _result.data!,
-      (json) => json as String,
+          (json) => (json as List<dynamic>)
+          .map<BannerMessages>(
+              (i) => BannerMessages.fromJson(i as Map<String, dynamic>))
+          .toList(),
     );
     return value;
   }

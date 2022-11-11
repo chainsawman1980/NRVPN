@@ -15,6 +15,8 @@ import 'package:in_app_review/in_app_review.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:nizvpn/ui/page/webview_page.dart';
+import 'package:nizvpn/ui/screens/http/base_result.dart';
+import 'package:nizvpn/ui/screens/http/gcpay_api.dart';
 import 'package:provider/provider.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -46,7 +48,11 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> getBanner()
   async {
-    rxBanner.value = await VpnProvider.getBanner(context);
+    GCPayApi api = Get.find<GCPayApi>();
+    var bannerResult = await api.getBanner(<String, dynamic>{
+      'type': 1,
+    });
+    rxBanner.value = bannerResult.data!;
   }
   @override
   void didChangeDependencies() {

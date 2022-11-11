@@ -34,7 +34,7 @@ const String inters2IOS = "ca-app-pub-3940256099942544/1033173712"; //DISCONNECT
 const String inters3IOS = "ca-app-pub-3940256099942544/1033173712"; //SELECT_SERVER
 
 //Do not touch section ===================================================================
-const String api = "$endpoint/api/vpn/";
+const String api = "$endpoint/api/";
 
 String get banner1 => Platform.isIOS ? banner1IOS : banner1Android;
 String get banner2 => Platform.isIOS ? banner2IOS : banner2Android;

@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:retrofit/http.dart';
 
 
+import '../../../core/models/bannermessage.dart';
 import '../../model/Login_entity.dart';
 import '../../model/UserRegistration_RespData_entity.dart';
 import '../../model/token_model.dart';
@@ -29,8 +30,8 @@ abstract class GCPayApi {
 
 
   // 活动图片
-  @GET("/api/getBanner")
-  Future<BaseResult<String>> getBanner();
+  @GET("/api/siteMessage/getList")
+  Future<BaseResult<List<BannerMessages>>> getBanner(@Body() Map<String, dynamic> map);
 
 
   @GET("/api/login/getLoginCaptcha")
