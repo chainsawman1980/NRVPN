@@ -276,7 +276,12 @@ class _HomePageState extends State<HomePage> {
           child:
               Swiper(
                   itemBuilder: (BuildContext context, int index) {
-                    return Image.network(
+                    return  (rxBanner.value[index].pic == null || rxBanner.value[index].pic!.length==0)?Container(
+                      color: Colors.grey,
+                      child: Center(
+                        child: Text(rxBanner.value[index].title!),
+                      ),
+                    ):Image.network(
                       HttpUrl.BASE_URL+rxBanner.value[index].pic!,
                       fit: BoxFit.cover,
                       key: UniqueKey(),

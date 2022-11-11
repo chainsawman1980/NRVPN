@@ -36,7 +36,7 @@ dependencies:
   card_swiper: ^2.0.4
   intl: ^0.17.0
   easy_logger: ^0.0.2
-  flutter_inappwebview: ^5.4.4+3
+  flutter_inappwebview: ^5.7.1
   #屏幕适配
   flutter_screenutil: ^5.5.3
   #  事件总线--EventBus
@@ -52,7 +52,6 @@ dependencies:
   easy_refresh: ^3.0.4+4
   flutter_smart_dialog: ^4.5.3+6
   uuid: ^3.0.6
-  platform_device_id: ^1.0.1
   get_storage: ^2.0.3
   font_awesome_flutter: ^10.2.1
   internet_connection_checker: ^0.0.1+3

@@ -13,7 +13,6 @@ import 'package:nizvpn/ui/screens/auth/auth_api_service.dart';
 import 'package:nizvpn/ui/screens/auth/cache_service.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:platform_device_id/platform_device_id.dart';
 
 import 'package:nizvpn/ui/screens/http/gcpay_api.dart';
 
@@ -98,9 +97,6 @@ class LoginController extends AuthController {
 
   @override
   Future<void> onInit() async {
-    String? deviceId = await PlatformDeviceId.getDeviceId;
-    captaText.value = deviceId!;
-    log("login controller" + deviceId);
     ImageCache  imageCache = PaintingBinding.instance.imageCache;
     imageCache.clear();
     imageCache.clearLiveImages();
@@ -167,7 +163,6 @@ class LoginController extends AuthController {
 
   Future<void> getCaptca() async {
       try {
-        String? deviceId = await PlatformDeviceId.getDeviceId;
         String captchaResult = await api.captcha(<String, String>{
           'regType': "2",
           'key': "lamyz0417@qq.com",

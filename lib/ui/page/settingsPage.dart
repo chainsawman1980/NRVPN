@@ -16,6 +16,7 @@ import '../../core/provider/vpnProvider.dart';
 import '../../core/resources/environment.dart';
 import '../../core/resources/nerdVpnIcons.dart';
 import '../components/customDivider.dart';
+import '../routes/app_routes.dart';
 import '../screens/aboutScreen.dart';
 import '../screens/killSwtichScreen.dart';
 import '../screens/languagesScreen.dart';
@@ -79,6 +80,11 @@ class PengaturanPage extends StatelessWidget {
                     leading: Icon(LineIcons.download, color: Colors.black),
                     onTap: () => _checkUpdateClick(context),
                   ),
+                  ListTile(
+                    title: Text("about".trs()),
+                    leading: Icon(LineIcons.infoCircle, color: Colors.black),
+                    onTap: () => _aboutClick(context),
+                  ),
                   // Text("setting_vpn".tr(), style: TextStyle(fontSize: 12, color: Colors.grey)),
                   // ListTile(
                   //   title: Text("setting_whitelist".tr()),
@@ -97,14 +103,14 @@ class PengaturanPage extends StatelessWidget {
                     onTap: _tosClick,
                   ),
                   ListTile(
-                    title: Text("about".trs()),
-                    leading: Icon(LineIcons.infoCircle, color: Colors.black),
-                    onTap: () => _aboutClick(context),
-                  ),
-                  ListTile(
                     title: Text("setting_rateus".trs()),
                     leading: Icon(LineIcons.star, color: Colors.black),
                     onTap: _rateUsClick,
+                  ),
+                  ListTile(
+                    title: Text("seetingsighout".trs()),
+                    leading: Icon(LineIcons.alternateSignOut, color: Colors.black),
+                    onTap: () => _signOutClick(context),
                   ),
                   ColumnDivider(space: 90),
                 ],
@@ -201,5 +207,9 @@ class PengaturanPage extends StatelessWidget {
 
   void _aboutClick(context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => AboutScreen()));
+  }
+
+  void _signOutClick(context) {
+    Get.offAndToNamed(AppRoutes.LoginPage);
   }
 }

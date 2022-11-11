@@ -407,9 +407,10 @@ class _VpnServerButtonState extends State<VpnServerButton> {
         ],
       ).show(context);
     }
+    GCPayApi api = Get.find<GCPayApi>();
     VpnConfig? resp = await CustomProgressDialog.future(
       context,
-      future: VpnServerHttp(context).detailVpn(widget.vpnServer!),
+      future: api.detailVpn(widget.vpnServer!),
       dismissable: false,
       loadingWidget: Center(
         child: Container(

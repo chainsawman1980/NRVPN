@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:nizvpn/easy_local/easy_localization.dart';
 import 'package:nizvpn/ui/screens/http/base_result.dart';
 
-import 'package:platform_device_id/platform_device_id.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../widgets/constant/http_url.dart';
@@ -112,9 +111,6 @@ class SignupController extends AuthController {
     super.onInit();
     _addListener();
     // textFieldFocusNode.hasFocus = false;
-    String? deviceId = await PlatformDeviceId.getDeviceId;
-    log("signup controller" + deviceId!);
-    captaText.value = deviceId;
     verifyCodeController.text='';
     phoneNumController.text='';
     emailController.text='';

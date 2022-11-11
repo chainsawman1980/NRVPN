@@ -276,4 +276,33 @@ class _GCPayApi implements GCPayApi {
     );
     return value;
   }
+
+  @override
+  Future<VpnConfig?> detailVpn(VpnServerModel vpnServer) async {
+    var resp;
+    resp = await detailVpnAPI(vpnServer.slug!);
+
+    return resp.data;
+  }
+
+  @override
+  Future<BaseResult<VpnConfig>> detailVpnAPI(String strServerId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _headers["Authorization"] = loadToken()!;
+
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResult<VpnConfig>>(
+            Options(method: 'GET', headers: _headers, extra: _extra)
+                .compose(_dio.options, '/api/vpn/detial/'+strServerId,
+                queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResult<VpnConfig>.fromJson(
+      _result.data!,
+          (json) => VpnConfig.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
 }
