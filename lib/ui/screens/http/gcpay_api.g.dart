@@ -296,7 +296,7 @@ class _GCPayApi implements GCPayApi {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResult<VpnConfig>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/vpn/detial/'+strServerId,
+                .compose(_dio.options, '/api/vpn/detail/'+strServerId,
                 queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResult<VpnConfig>.fromJson(

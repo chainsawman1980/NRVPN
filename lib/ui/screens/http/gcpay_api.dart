@@ -73,6 +73,6 @@ abstract class GCPayApi {
 
   Future<VpnConfig?> detailVpn(VpnServerModel vpnServer);
 
-  @GET("/api/vpn/randomVpn")
+  @GET("/api/vpn/detail")
   Future<BaseResult<VpnConfig>> detailVpnAPI(String strServerId);
 }
