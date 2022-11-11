@@ -139,7 +139,7 @@ class LoginScreen extends BaseStatefulWidget<LoginController> {
                     // <-- Your width
                     height: 50, // <-- Your height
                     child: TextFormField(
-                      // key: const Key('username'),
+                      key: controller.formLoginEmailFieldKey,
                       controller: controller.emailController,
                       decoration: InputDecoration(
                         icon: FaIcon(FontAwesomeIcons.user),
@@ -168,9 +168,9 @@ class LoginScreen extends BaseStatefulWidget<LoginController> {
                             // <-- Your width
                             height: 50, // <-- Your height
                             child: TextFormField(
-                              key: controller.formTrc20FieldKey,
+                              key: controller.formLoginVerifyCodeFieldKey,
                               controller: controller.verifycodeController,
-                              focusNode: controller.trc20FocusNode,
+                              focusNode: controller.loginVerifyCodeFocusNode,
                               decoration: InputDecoration(
                                 icon: Icon(Icons.sms),
                                 suffixIconConstraints:

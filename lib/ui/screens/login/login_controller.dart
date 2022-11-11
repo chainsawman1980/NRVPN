@@ -26,11 +26,12 @@ class LoginController extends AuthController {
   final GlobalKey<FormState> loginFormKey =
       GlobalKey<FormState>(debugLabel: '__loginFormKey__');
   final emailController = TextEditingController();
-  final passwordController = TextEditingController();
   final verifycodeController = TextEditingController();
-  final formTrc20FieldKey = GlobalKey<FormFieldState>();
+  final formLoginVerifyCodeFieldKey = GlobalKey<FormFieldState>();
+  final formLoginEmailFieldKey = GlobalKey<FormFieldState>();
 
-  FocusNode trc20FocusNode = FocusNode();
+  FocusNode loginEmailFocusNode = FocusNode();
+  FocusNode loginVerifyCodeFocusNode = FocusNode();
   RxBool isButtonEnable = true.obs;      //按钮初始状态  是否可点击
   RxInt count = 60.obs;                     //初始倒计时时间
   Timer? timer;
@@ -71,9 +72,11 @@ class LoginController extends AuthController {
     if (isButtonEnable.value) {
       //当按钮可点击时
       isButtonEnable.value = false; //按钮状态标记
+      LoadingOverlay.show(message: 'verifycodesending'.trs());
       try {
-        await sendLoginsmscode();
-        log('response signup');
+        bool blSendSmsCode = await sendLoginsmscode();
+        LoadingOverlay.hide();
+        log('buttonClickListen response login');
       } catch (err, _) {
         printError(info: err.toString());
         LoadingOverlay.hide();
@@ -106,7 +109,9 @@ class LoginController extends AuthController {
   @override
   void onClose() {
     emailController.dispose();
-    passwordController.dispose();
+    loginEmailFocusNode.dispose();
+    verifycodeController.dispose();
+    loginVerifyCodeFocusNode.dispose();
     timer?.cancel();
     timer=null;
     super.onClose();
@@ -116,7 +121,7 @@ class LoginController extends AuthController {
     log('validatoooor');
 
     if (value != null && value.isEmpty) {
-      return 'Please this field must be filled'.tr;
+      return 'Please this field must be filled'.trs();
     }
     return null;
   }
@@ -125,7 +130,7 @@ class LoginController extends AuthController {
 //   "playerName": "string",
 //   "trc20Address": "string"
   Future<void> login() async {
-    log('${emailController.text}, ${passwordController.text}');
+    log('${emailController.text}, ${emailController.text}');
     if (loginFormKey.currentState!.validate()) {
       try {
         String strRegType = '';
@@ -212,9 +217,9 @@ class LoginController extends AuthController {
   }
 
 
-  Future<void> sendLoginsmscode() async {
+  Future<bool> sendLoginsmscode() async {
     log('${emailController.text}, ${emailController.text}');
-
+    bool blLoginSmsCode = false;
     try {
       String strRegType = '';
       if(ValidateUtils().isEmail(emailController.text))
@@ -225,7 +230,7 @@ class LoginController extends AuthController {
         {
           strRegType = '1';
         }
-      await senRegSmsCode(<String, String>{
+      blLoginSmsCode = await sendLoginSmsCode(<String, String>{
         'regType': strRegType,
         'key': emailController.text,
       });
@@ -236,5 +241,6 @@ class LoginController extends AuthController {
       emailController.clear();
       rethrow;
     }
+    return blLoginSmsCode;
   }
 }

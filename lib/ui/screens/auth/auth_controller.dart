@@ -7,6 +7,7 @@ import 'package:nizvpn/ui/model/Login_entity.dart';
 import 'package:nizvpn/ui/model/token_model.dart';
 import 'package:nizvpn/ui/widgets/controller/base_controller.dart';
 import 'package:nizvpn/ui/screens/http/gcpay_api.dart';
+import 'package:nizvpn/ui/widgets/http/result/base_result.dart';
 import 'auth_api_service.dart';
 import 'package:nizvpn/ui/screens/auth/cache_service.dart';
 
@@ -58,8 +59,8 @@ class AuthController extends BaseController {
     return tokenData;
   }
 
-  Future<TokenModel?> signUp(Map<String, dynamic> data) async {
-    TokenModel? tokenData;
+  Future<bool> signUp(Map<String, dynamic> data) async {
+    bool blsignup = false;
     String errorM =
         'An error occurred while registering, please contact the administrator.';
     try {
@@ -69,7 +70,7 @@ class AuthController extends BaseController {
       log('is signup : ${response.toString()}');
       if (response.code == 1000) {
         log('enter signup');
-        Get.back();
+        blsignup = true;
       } else {
         // var message = response.body['error_description'];
 
@@ -80,11 +81,11 @@ class AuthController extends BaseController {
       printError(info: e.toString());
       throw Exception(errorM);
     }
-    return tokenData;
+    return blsignup;
   }
 
-  Future<TokenModel?> senRegSmsCode(Map<String, dynamic> data) async {
-    TokenModel? tokenData;
+  Future<bool> sendRegSmsCode(Map<String, dynamic> data) async {
+    bool blRegSmsCode = false;
     String errorM =
         'An error occurred while senSmsCode, please contact the administrator.';
     try {
@@ -92,8 +93,9 @@ class AuthController extends BaseController {
       errorM = response.msg!;
 
       if (response.code == 1000) {
-        log('senSmsCodesuccess');
-        showToast("send_sms_success".tr,
+        log('senRegSmsCodesuccess');
+        blRegSmsCode = true;
+        showToast(response.msg,
             gravity: ToastGravity.CENTER);
         // tokenData = await editPass(<String, String>{
         //   'confirm': data['confirm'],
@@ -112,11 +114,11 @@ class AuthController extends BaseController {
       printError(info: e.toString());
       throw Exception(errorM);
     }
-    return tokenData;
+    return blRegSmsCode;
   }
 
-  Future<TokenModel?> senLoginSmsCode(Map<String, dynamic> data) async {
-    TokenModel? tokenData;
+  Future<bool> sendLoginSmsCode(Map<String, dynamic> data) async {
+    bool blLoginSmsCode = false;
     String errorM =
         'An error occurred while senSmsCode, please contact the administrator.';
     try {
@@ -126,7 +128,8 @@ class AuthController extends BaseController {
       log('is senSmsCode : ${response.toString()}');
       if (response.code == 200) {
         log('senSmsCodesuccess');
-        showToast("send_sms_success".tr,
+        blLoginSmsCode = true;
+        showToast(response.msg,
             gravity: ToastGravity.CENTER);
         // tokenData = await editPass(<String, String>{
         //   'confirm': data['confirm'],
@@ -145,7 +148,7 @@ class AuthController extends BaseController {
       printError(info: e.toString());
       throw Exception(errorM);
     }
-    return tokenData;
+    return blLoginSmsCode;
   }
 
   String? token() => _cacheServices.token;

@@ -74,16 +74,35 @@ class SignupScreen extends GetView<SignupController> {
                     // <-- Your width
                     height: 50, // <-- Your height
                     child: TextFormField(
-                      key: controller.formUsernameFieldKey,
+                      key: controller.formEmailFieldKey,
+                      controller: controller.emailController,
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.email_outlined),
+                        hintText: 'login_email_hint'.trs(),
+                        hintStyle: TextStyle(fontSize: 14),
+                      ),
+                      focusNode: controller.emailFocusNode,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: controller.emailValidator,
+                    ),
+                  ),
+                  Container(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    // <-- Your width
+                    height: 50, // <-- Your height
+                    child: TextFormField(
+                      key: controller.formPhoneNumFieldKey,
                       controller: controller.phoneNumController,
                       decoration: InputDecoration(
                         icon: Icon(Icons.phone_android),
                         hintText: 'login_phonenum_hint'.trs(),
                         hintStyle: TextStyle(fontSize: 14),
                       ),
-                      focusNode: controller.usernameFocusNode,
+                      focusNode: controller.phoneNumFocusNode,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: controller.userNameValidator,
+                      validator: controller.phoneNumValidator,
                     ),
                   ),
                   Container(
@@ -102,9 +121,9 @@ class SignupScreen extends GetView<SignupController> {
                             // <-- Your width
                             height: 50, // <-- Your height
                             child: TextFormField(
-                              key: controller.formTrc20FieldKey,
-                              controller: controller.phoneVerifyCodeController,
-                              focusNode: controller.trc20FocusNode,
+                              key: controller.formVerifyCodeFieldKey,
+                              controller: controller.verifyCodeController,
+                              focusNode: controller.verifyCodeFocusNode,
                               decoration: InputDecoration(
                                 icon: Icon(Icons.sms),
                                 suffixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
@@ -144,7 +163,7 @@ class SignupScreen extends GetView<SignupController> {
                               ),
                               autovalidateMode:
                               AutovalidateMode.onUserInteraction,
-                              validator: controller.passwordValidator,
+                              validator: controller.verifyCodeValidator,
                               // obscureText: true,
                             ),
                           ),
@@ -164,11 +183,15 @@ class SignupScreen extends GetView<SignupController> {
                               .validate()) {
                             LoadingOverlay.show(message: 'Loading...'.trs());
                             try {
-                              await controller.signup();
+                              bool blsignsuccess = await controller.signup();
                               controller.signupFormKey.currentState!.save();
                               log('response signup');
                               Get.back(closeOverlays: true);
-                              Get.toNamed(AppRoutes.LoginPage);
+                              if(blsignsuccess)
+                                {
+                                  Get.toNamed(AppRoutes.LoginPage);
+                                }
+
                             } catch (err, _) {
                               printError(info: err.toString());
                               LoadingOverlay.hide();

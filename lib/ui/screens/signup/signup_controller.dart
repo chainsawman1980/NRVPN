@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:nizvpn/easy_local/easy_localization.dart';
+import 'package:nizvpn/ui/screens/http/base_result.dart';
 
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:uuid/uuid.dart';
@@ -23,9 +24,9 @@ class SignupController extends AuthController {
   final GlobalKey<FormState> signupFormKey =
       GlobalKey<FormState>(debugLabel: '__signupFormKey__');
   final phoneNumController = TextEditingController();
-  final formUsernameFieldKey = GlobalKey<FormFieldState>();
-  final phoneVerifyCodeController = TextEditingController();
-  final formTrc20FieldKey = GlobalKey<FormFieldState>();
+  final formPhoneNumFieldKey = GlobalKey<FormFieldState>();
+  final verifyCodeController = TextEditingController();
+  final formVerifyCodeFieldKey = GlobalKey<FormFieldState>();
   final emailController = TextEditingController();
   final formEmailFieldKey = GlobalKey<FormFieldState>();
   final passwordController = TextEditingController();
@@ -35,10 +36,10 @@ class SignupController extends AuthController {
   final payCodeController = TextEditingController();
   final formInviteCodeFieldKey = GlobalKey<FormFieldState>();
 
-  FocusNode usernameFocusNode = FocusNode();
+  FocusNode phoneNumFocusNode = FocusNode();
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
-  FocusNode trc20FocusNode = FocusNode();
+  FocusNode verifyCodeFocusNode = FocusNode();
   FocusNode confirmPasswordFocusNode = FocusNode();
   FocusNode inviteCodeFocusNode = FocusNode();
 
@@ -82,9 +83,11 @@ class SignupController extends AuthController {
     if (isButtonEnable.value) {
       //当按钮可点击时
       isButtonEnable.value = false; //按钮状态标记
+      LoadingOverlay.show(message: 'verifycodesending'.trs());
       try {
-        await sendRegsmscode();
-        log('response signup');
+        bool blSendSmsCode = await sendRegsmscode();
+        LoadingOverlay.hide();
+        log('buttonClickListen response signup');
       } catch (err, _) {
         printError(info: err.toString());
         LoadingOverlay.hide();
@@ -112,24 +115,33 @@ class SignupController extends AuthController {
     String? deviceId = await PlatformDeviceId.getDeviceId;
     log("signup controller" + deviceId!);
     captaText.value = deviceId;
-    phoneVerifyCodeController.text='';
+    verifyCodeController.text='';
     phoneNumController.text='';
+    emailController.text='';
   }
 
   void _addListener() {
-    usernameFocusNode.addListener(() {
-      log('usernameFocusNode-----${usernameFocusNode.hasFocus}');
-      if (!usernameFocusNode.hasFocus) {
-        formUsernameFieldKey.currentState!.validate();
-        // fieldLostFocus = usernameController.hashCode.toString();
-      }
-    });
     emailFocusNode.addListener(() {
       log('emailFocusNode-----${emailFocusNode.hasFocus}');
       if (!emailFocusNode.hasFocus) {
         formEmailFieldKey.currentState!.validate();
       }
     });
+
+    phoneNumFocusNode.addListener(() {
+      log('phoneNumFocusNode-----${phoneNumFocusNode.hasFocus}');
+      if (!phoneNumFocusNode.hasFocus) {
+        formPhoneNumFieldKey.currentState!.validate();
+        // fieldLostFocus = usernameController.hashCode.toString();
+      }
+    });
+
+    verifyCodeFocusNode.addListener(() {
+      if (!verifyCodeFocusNode.hasFocus) {
+        formVerifyCodeFieldKey.currentState!.validate();
+      }
+    });
+
     passwordFocusNode.addListener(() {
       if (!passwordFocusNode.hasFocus) {
         formPasswordFieldKey.currentState!.validate();
@@ -151,9 +163,11 @@ class SignupController extends AuthController {
   @override
   void onClose() {
     phoneNumController.dispose();
-    usernameFocusNode.dispose();
+    phoneNumFocusNode.dispose();
     emailController.dispose();
     emailFocusNode.dispose();
+    verifyCodeController.dispose();
+    verifyCodeFocusNode.dispose();
     passwordController.dispose();
     passwordFocusNode.dispose();
     confirmPasswordController.dispose();
@@ -167,7 +181,7 @@ class SignupController extends AuthController {
 
   String? passwordValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Please this field must be filled'.tr;
+      return 'Please this field must be filled'.trs();
     }
     if (value.trim().length < 3) {
       return 'Password must be at least 8 characters in length'.tr;
@@ -178,7 +192,7 @@ class SignupController extends AuthController {
 
   String? confirmPasswordValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please this field must be filled'.tr;
+      return 'Please this field must be filled'.trs();
     }
     log('${value}--${passwordController.value.text}');
     if (value != passwordController.value.text) {
@@ -192,24 +206,47 @@ class SignupController extends AuthController {
     log('validatoooor');
 
     if (value != null && value.isEmpty) {
-      return 'Please this field must be filled'.tr;
+      return 'Please this field must be filled'.trs();
     }
     return null;
   }
 
-  String? userNameValidator(String? value) {
+  String? emailValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'Please this field must be filled'.trs();
     }
-    if (!ValidateUtils().isEmail(value)&&!ValidateUtils().isChinaPhoneNumber(value)) {
-      return 'Invalid mobile number or email'.trs();
+    if (!ValidateUtils().isEmail(value)) {
+      return 'Invalid email'.trs();
     }
     // Return null if the entered password is valid
     return null;
   }
 
-  Future<void> signup() async {
-    log('${emailController.text}, ${passwordController.text}');
+  String? phoneNumValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Please this field must be filled'.trs();
+    }
+    if (!ValidateUtils().isChinaPhoneNumber(value)) {
+      return 'Invalid mobile number'.trs();
+    }
+    // Return null if the entered password is valid
+    return null;
+  }
+
+  String? verifyCodeValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Please this field must be filled'.trs();
+    }
+    if (value.trim().length < 4) {
+      return 'VerifyCode must be at least 4 characters in length'.trs();
+    }
+    // Return null if the entered password is valid
+    return null;
+  }
+
+  Future<bool> signup() async {
+    bool blSignSuccess = false;
+    log('${phoneNumController.text}, ${phoneNumController.text}');
     if (signupFormKey.currentState!.validate()) {
       try {
 
@@ -219,20 +256,23 @@ class SignupController extends AuthController {
         if(ValidateUtils().isEmail(emailController.text))
         {
           strRegType = '2';
-          strEmail = phoneNumController.text;
+          strEmail = emailController.text;
+          strPhoneNum = phoneNumController.text;
         }
-        else if(ValidateUtils().isChinaPhoneNumber(emailController.text))
+        else if(ValidateUtils().isChinaPhoneNumber(phoneNumController.text))
         {
-          strRegType = '1';
+          strRegType = '2';
+          strEmail = emailController.text;
           strPhoneNum = phoneNumController.text;
         }
 
-        await signUp(<String, String>{
+        blSignSuccess = await signUp(<String, String>{
           'regType': strRegType,
           'email': strEmail,
           'phone': strPhoneNum,
-          'verifyCode': phoneVerifyCodeController.text,
+          'verifyCode': verifyCodeController.text,
         });
+
       } catch (err, _) {
         // message = 'There is an issue with the app during request the data, '
         //         'please contact admin for fixing the issues ' +
@@ -242,32 +282,34 @@ class SignupController extends AuthController {
     } else {
       throw Exception('An error occurred, invalid inputs value'.tr);
     }
+    return blSignSuccess;
   }
 
-  Future<void> sendRegsmscode() async {
-    log('${phoneNumController.text}, ${phoneNumController.text}');
-
+  Future<bool> sendRegsmscode() async {
+    log('${emailController.text}, ${emailController.text}');
+    bool blRegVerifyCode = false;
     try {
       String strRegType = '';
-      if(ValidateUtils().isEmail(phoneNumController.text))
+      if(ValidateUtils().isEmail(emailController.text))
       {
         strRegType = '2';
       }
-      else if(ValidateUtils().isChinaPhoneNumber(phoneNumController.text))
+      else if(ValidateUtils().isChinaPhoneNumber(emailController.text))
       {
         strRegType = '1';
       }
-      await senRegSmsCode(<String, String>{
+      blRegVerifyCode = await sendRegSmsCode(<String, String>{
         'regType': strRegType,
-        'key': phoneNumController.text,
+        'key': emailController.text,
       });
     } catch (err, _) {
       // message = 'There is an issue with the app during request the data, '
       //         'please contact admin for fixing the issues ' +
 
-      phoneVerifyCodeController.clear();
+      verifyCodeController.clear();
       rethrow;
     }
+    return blRegVerifyCode;
   }
 
 }
