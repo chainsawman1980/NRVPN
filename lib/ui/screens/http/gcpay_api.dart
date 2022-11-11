@@ -7,6 +7,7 @@ import 'package:retrofit/http.dart';
 
 
 import '../../../core/models/bannermessage.dart';
+import '../../../core/models/vpnConfig.dart';
 import '../../../core/models/vpnServer.dart';
 import '../../model/Login_entity.dart';
 import '../../model/UserRegistration_RespData_entity.dart';
