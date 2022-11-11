@@ -66,5 +66,5 @@ abstract class GCPayApi {
   @GET("/api/vpn/allservers/pro")
   Future<BaseResult<List<VpnServer>>> allProServerAPI(@Body() Map<String, dynamic> map);
 
-
+  Future<VpnConfig?> randomVpn();
 }

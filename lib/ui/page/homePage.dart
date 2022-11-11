@@ -31,6 +31,7 @@ import '../../core/utils/preferences.dart';
 import '../components/customDivider.dart';
 import '../components/customImage.dart';
 import '../screens/subscriptionDetailScreen.dart';
+import '../widgets/constant/http_url.dart';
 import 'newsmessage_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -275,9 +276,10 @@ class _HomePageState extends State<HomePage> {
           child:
               Swiper(
                   itemBuilder: (BuildContext context, int index) {
-                    return Image.asset(
-                      en_US[index],
+                    return Image.network(
+                      HttpUrl.BASE_URL+rxBanner.value[index].pic!,
                       fit: BoxFit.cover,
+                      key: UniqueKey(),
                     );
                   },
                   itemCount: rxBanner.length,

@@ -252,14 +252,14 @@ class _GCPayApi implements GCPayApi {
   Future<VpnConfig?> randomVpn() async {
     var resp;
     resp = await randomVpnAPI();
-    
+
     return resp.data;
   }
 
   @override
   Future<BaseResult<VpnConfig>> randomVpnAPI() async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};;
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _headers["Authorization"] = loadToken()!;
@@ -267,7 +267,7 @@ class _GCPayApi implements GCPayApi {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResult<VpnConfig>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/api/vpn/allservers/pro',
+                .compose(_dio.options, '/api/vpn/randomVpn',
                 queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResult<VpnConfig>.fromJson(

@@ -1,10 +1,13 @@
 import 'dart:async';
 
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:nizvpn/easy_local/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:provider/provider.dart';
 
+import '../../ui/screens/http/gcpay_api.dart';
 import '../../ui/screens/subscriptionDetailScreen.dart';
 import '../https/vpnServerHttp.dart';
 import '../models/bannermessage.dart';
@@ -96,7 +99,8 @@ class VpnProvider extends ChangeNotifier {
 
   ///Set VPNConfig with random configuration that taken from Server!
   Future<void> setRandom(BuildContext context) async {
-    var resp = await VpnServerHttp(context).randomVpn();
+    GCPayApi api = Get.find<GCPayApi>();
+    var resp = await api.randomVpn();
     if (resp != null) vpnConfig = resp;
   }
 
