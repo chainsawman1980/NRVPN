@@ -240,6 +240,7 @@ class LoginScreen extends BaseStatefulWidget<LoginController> {
                             LoadingOverlay.show(message: 'loginmessage'.trs());
                             try {
                               await controller.login();
+                              controller.clearText();
                               Get.back(closeOverlays: true);
                               Get.offNamed(AppRoutes.MainPage);
                             } catch (err, _) {
@@ -284,7 +285,7 @@ class LoginScreen extends BaseStatefulWidget<LoginController> {
                                   "https://chatlink.mstatik.com/widget/standalone.html?eid=b6de0b8c409c539be3cfa3a9908f1d6c";
                             } else {
                               strCSUrl =
-                                  "https://chatlink.mstatik.com/widget/standalone.html?eid=0d2b2137e3c92d6d9205c2e0a2feb9ff&language=en";
+                                  "https://chatlink.mstatik.com/widget/standalone.html?eid=b6de0b8c409c539be3cfa3a9908f1d6c";
                             }
                             Get.to(WebViewPage(
                               strUrl: strCSUrl,

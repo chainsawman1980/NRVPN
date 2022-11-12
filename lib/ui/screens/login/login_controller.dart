@@ -237,4 +237,10 @@ class LoginController extends AuthController {
     }
     return blLoginSmsCode;
   }
+
+  void clearText()
+  {
+    verifycodeController.clear();
+    emailController.clear();
+  }
 }
