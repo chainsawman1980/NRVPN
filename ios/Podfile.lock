@@ -1,7 +1,19 @@
 PODS:
   - app_tracking_transparency (0.0.1):
     - Flutter
+  - Flurry-iOS-SDK/CrashReporter (12.1.4)
+  - Flurry-iOS-SDK/FlurryConfig (12.1.4):
+    - Flurry-iOS-SDK/FlurrySDK
+  - Flurry-iOS-SDK/FlurryMessaging (12.1.4):
+    - Flurry-iOS-SDK/FlurrySDK
+  - Flurry-iOS-SDK/FlurrySDK (12.1.4):
+    - Flurry-iOS-SDK/CrashReporter
   - Flutter (1.0.0)
+  - flutter_flurry_sdk (0.0.1):
+    - Flurry-iOS-SDK/FlurryConfig (~> 12.1.1)
+    - Flurry-iOS-SDK/FlurryMessaging (~> 12.1.1)
+    - Flurry-iOS-SDK/FlurrySDK (~> 12.1.1)
+    - Flutter
   - flutter_inapp_purchase (0.0.1):
     - Flutter
   - flutter_inappwebview (0.0.1):
@@ -51,6 +63,7 @@ PODS:
 DEPENDENCIES:
   - app_tracking_transparency (from `.symlinks/plugins/app_tracking_transparency/ios`)
   - Flutter (from `Flutter`)
+  - flutter_flurry_sdk (from `.symlinks/plugins/flutter_flurry_sdk/ios`)
   - flutter_inapp_purchase (from `.symlinks/plugins/flutter_inapp_purchase/ios`)
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
@@ -65,6 +78,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Flurry-iOS-SDK
     - FMDB
     - OrderedSet
     - Toast
@@ -74,6 +88,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/app_tracking_transparency/ios"
   Flutter:
     :path: Flutter
+  flutter_flurry_sdk:
+    :path: ".symlinks/plugins/flutter_flurry_sdk/ios"
   flutter_inapp_purchase:
     :path: ".symlinks/plugins/flutter_inapp_purchase/ios"
   flutter_inappwebview:
@@ -105,7 +121,9 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   app_tracking_transparency: 5b1745ef9ade815f7455cb6a0848349589afb7c5
+  Flurry-iOS-SDK: 8e6d7d9323ad24da06f24943ed738e36039631e9
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_flurry_sdk: fefbae580457c376cd0f42babc948f87225e0bbc
   flutter_inapp_purchase: 5c6a1ac3f11b11d0c8c0321c0c41c1f05805e4c8
   flutter_inappwebview: bfd58618f49dc62f2676de690fc6dcda1d6c3721
   fluttertoast: 74526702fea2c060ea55dde75895b7e1bde1c86b

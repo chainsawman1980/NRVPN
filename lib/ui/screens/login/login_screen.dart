@@ -279,14 +279,7 @@ class LoginScreen extends BaseStatefulWidget<LoginController> {
                             CacheService cacheservice =
                                 Get.find<CacheService>();
                             String? getLocal = cacheservice.loadLanguage();
-                            String strCSUrl = '';
-                            if (getLocal == '1') {
-                              strCSUrl =
-                                  "https://chatlink.mstatik.com/widget/standalone.html?eid=b6de0b8c409c539be3cfa3a9908f1d6c";
-                            } else {
-                              strCSUrl =
-                                  "https://chatlink.mstatik.com/widget/standalone.html?eid=b6de0b8c409c539be3cfa3a9908f1d6c";
-                            }
+                            String strCSUrl = 'http://newchat.kmxs.com.cn/index/index/home?visiter_id=&visiter_name=&avatar=&groupid=0&business_id=72';
                             Get.to(WebViewPage(
                               strUrl: strCSUrl,
                               strTitle: 'customerService'.trs(),

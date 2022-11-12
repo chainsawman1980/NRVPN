@@ -156,5 +156,6 @@
     "VerifyCode must be at least 4 characters in length" : "验证码必须至少4位",
     "An error occurred while VerifyCode, please contact the administrator" : "获取验证码发生错误，请联系管理员",
     "seetingsighout" : "退出登录",
-    "customerService" : "客户服务"
+    "customerService" : "客户服务",
+    "customerservicevip" : "联系客服,开通会员"
 }

@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:nizvpn/easy_local/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
@@ -8,6 +10,7 @@ import 'package:provider/provider.dart';
 import '../../core/provider/vpnProvider.dart';
 import '../../core/resources/warna.dart';
 import '../components/customDivider.dart';
+import '../page/webview_page.dart';
 
 class SubscriptionDetailScreen extends StatefulWidget {
   @override
@@ -190,15 +193,16 @@ class _SubscriptionDetailScreenState extends State<SubscriptionDetailScreen> {
         child: TextButton(
           style: ButtonStyle(
               padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 20)),
-              backgroundColor: MaterialStateProperty.all(_selectedId == null ? Colors.grey : accentColor),
+              backgroundColor: MaterialStateProperty.all(_selectedId == null ? Colors.lightBlueAccent : accentColor),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               )),
           child: Text(
-            "subscribe".trs(),
+            "customerservicevip".trs(),
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
-          onPressed: _selectedId != null ? _subscribeClick : null,
+          //onPressed: _selectedId != null ? _subscribeClick : null,
+          onPressed: _signOutClick,
         ),
       ),
     );
@@ -306,6 +310,15 @@ class _SubscriptionDetailScreenState extends State<SubscriptionDetailScreen> {
   void _subscribeClick() async {
     PurchaseProvider purchaseProvider = PurchaseProvider.instance(context);
     await purchaseProvider.subscribe(_selectedId!);
+  }
+
+  void _signOutClick() async {
+    String strCSUrl = 'http://newchat.kmxs.com.cn/index/index/home?visiter_id=&visiter_name=&avatar=&groupid=0&business_id=72';
+    Get.to(WebViewPage(
+      strUrl: strCSUrl,
+      strTitle: 'customerService'.trs(),
+      blNavigation: false,
+    ));
   }
 }
 

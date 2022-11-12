@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
+import 'package:flutter_flurry_sdk/flurry.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
@@ -57,6 +58,15 @@ Future<void> initializeApp() async {
   Get.put(MainController());
   Get.put(AuthController(Get.put(AuthApiService()), Get.put(CacheService()), Get.put(GCPayApi())),
       permanent: true);
+
+  Flurry.builder
+      .withCrashReporting(true)
+      .withLogEnabled(true)
+      .withLogLevel(LogLevel.debug)
+      .withReportLocation(true)
+      .build(
+      androidAPIKey:"GN8ZPYD67WKMTHQHDYWW",
+      iosAPIKey:"2KHZMWYPJQN99F595DP2");
 
   log('Initialize');
 }

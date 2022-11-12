@@ -109,6 +109,11 @@ class PengaturanPage extends StatelessWidget {
                     onTap: _rateUsClick,
                   ),
                   ListTile(
+                    title: Text("customerService".trs()),
+                    leading: Icon(LineIcons.phone, color: Colors.black),
+                    onTap: () => _customerServiceClick(context),
+                  ),
+                  ListTile(
                     title: Text("seetingsighout".trs()),
                     leading: Icon(LineIcons.alternateSignOut, color: Colors.black),
                     onTap: () => _signOutClick(context),
@@ -208,6 +213,15 @@ class PengaturanPage extends StatelessWidget {
 
   void _aboutClick(context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => AboutScreen()));
+  }
+
+  void _customerServiceClick(context) {
+    String strCSUrl = 'http://newchat.kmxs.com.cn/index/index/home?visiter_id=&visiter_name=&avatar=&groupid=0&business_id=72';
+    Get.to(WebViewPage(
+      strUrl: strCSUrl,
+      strTitle: 'customerService'.trs(),
+      blNavigation: false,
+    ));
   }
 
   void _signOutClick(context) {

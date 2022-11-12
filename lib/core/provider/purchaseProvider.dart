@@ -34,12 +34,14 @@ class PurchaseProvider extends ChangeNotifier {
   }
 
   Future init(BuildContext context) async {
+    /*
     await inappInstance.initialize();
     await fetchProducts();
     await refreshProStatus(context);
     purchaseSnapshot = FlutterInappPurchase.purchaseUpdated.listen((event) {
       _verifyPurchase(context, event!);
     });
+    */
   }
 
   @override

@@ -153,5 +153,6 @@
     "VerifyCode must be at least 4 characters in length" : "VerifyCode must be at least 4 characters in length",
     "An error occurred while VerifyCode, please contact the administrator" : "An error occurred while VerifyCode, please contact the administrator",
     "seetingsighout" : "SignOut",
-    "customerService" : "Customer Service"
+    "customerService" : "Customer Service",
+    "customerservicevip" : "联系客服,开通会员"
 }
