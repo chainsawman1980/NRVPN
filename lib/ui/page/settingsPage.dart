@@ -18,6 +18,7 @@ import '../../core/resources/nerdVpnIcons.dart';
 import '../components/customDivider.dart';
 import '../routes/app_routes.dart';
 import '../screens/aboutScreen.dart';
+import '../screens/auth/cache_service.dart';
 import '../screens/killSwtichScreen.dart';
 import '../screens/languagesScreen.dart';
 import '../screens/subscriptionDetailScreen.dart';
@@ -210,6 +211,8 @@ class PengaturanPage extends StatelessWidget {
   }
 
   void _signOutClick(context) {
+    CacheService cacheservice = Get.find<CacheService>();
+    cacheservice.logOut();
     Get.offAndToNamed(AppRoutes.LoginPage);
   }
 }
